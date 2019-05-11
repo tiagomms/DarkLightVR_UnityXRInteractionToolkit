@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - objectsToClean
+  - ThrowableBall
+  - LightSpirit
+  - LeftHand
+  - RightHand
+  - Body
+  - AudioFile
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - trash
+  - selectionRay
+  - Ignore raycast and physics
+  - Meditation Circle
+  - Player
+  - Ignore everything except Player
+  - Ignore everything except trash
+  - Ignore everything except selectionRay
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
