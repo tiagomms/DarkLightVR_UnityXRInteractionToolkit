@@ -4048,7 +4048,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'User Testers: Cati & Mi'
+  m_Text: 'User Testers: Ralha, Cati & Mi'
 --- !u!222 &412492309
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15846,7 +15846,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'With help from: Ricardo Ralha'
+  m_Text: 'Special Thanks to: Ricardo Ralha'
 --- !u!222 &1513137268
 CanvasRenderer:
   m_ObjectHideFlags: 0
