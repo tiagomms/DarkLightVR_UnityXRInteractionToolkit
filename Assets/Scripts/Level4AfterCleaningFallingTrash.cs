@@ -56,6 +56,9 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
     {
 		// set trashobjects handling in player selection ray
 		Level4AnimationsManager.instance.SetTrashObjectsHandlingIntoPlayerSelectionRay();
+
+		// enable player on everything
+        ToggleControllersManager.instance.EnablePlayerOnEverything();
 		
         // stop ls rays
         LightSpiritsController.instance.DisableAllLSRays();
@@ -93,10 +96,6 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 
         // path starts appearing
         EventManager.TriggerEvent(Global.Level4_Events.STONE_APPEAR);
-		
-		// enable player on everything
-        ToggleControllersManager.instance.EnablePlayerOnEverything();
-
     }
     private void BlendSkyboxUpdate(float blendValue)
     {

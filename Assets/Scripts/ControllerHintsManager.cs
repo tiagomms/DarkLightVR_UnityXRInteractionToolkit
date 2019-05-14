@@ -55,11 +55,11 @@ public class ControllerHintsManager : MonoBehaviour {
         }
 
         if (Global.Shared_Controllers.MEDITATION_CIRCLE_READY) {
-            voiceStrAux += "\nI am Ready \n(sit in meditation)"; 
+            voiceStrAux += "\nI am Ready\n(sit in meditation)"; 
         }
 
         if (Global.Shared_Controllers.VOICECOMMAND && voiceStrAux != "") {
-            ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Press for Voice Input:" + voiceStrAux, false);
+            ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Keep pressing for Voice Input:" + voiceStrAux, false);
         }
 
         ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Grab", false);
@@ -75,37 +75,108 @@ public class ControllerHintsManager : MonoBehaviour {
     #endregion
 
     #region INDIVIDUAL_HINTS
-    public void ShowSpecificTextHint(Global.Shared_Hints hint) {
+    public void ShowSpecificTextHint(Global.Shared_Hints hint, string newText = null) {
         switch (hint)
         {
             case Global.Shared_Hints.TUT_TELEPORT:
                 instance.teleportScript.ShowTeleportHint(); // Teleport.cs already has its own hint
                 break;
             case Global.Shared_Hints.TUT_HINTMENU:
-                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.ExtraMenu, "Hint Menu");
+                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.ExtraMenu, SelectTextHint(instance.leftHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_SELECTIONRAY:
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.SelectionRay, "Press to Select Trash");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.SelectionRay, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_CANCELSELECTION:
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.CancelSelection, "\t\t\t\t\tCancel Selection");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.CancelSelection, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_GRAB:
-                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Grab");
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, "Grab");
+                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, SelectTextHint(instance.leftHand, hint, newText));
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_THROW:
-                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Grab & Throw");
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, "Grab & Throw");
+                ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, SelectTextHint(instance.leftHand, hint, newText));
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_GOAWAY:
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "W/ trash selected\nKeep pressing &\nsay: Go Away");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             case Global.Shared_Hints.TUT_IAMREADY:
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Sitting in the circle\nPress & say: I am Ready");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, SelectTextHint(instance.rightHand, hint, newText));
                 break;
             default:
                 break;
+        }
+        // switch (hint)
+        // {
+        //     case Global.Shared_Hints.TUT_TELEPORT:
+        //         instance.teleportScript.ShowTeleportHint(); // Teleport.cs already has its own hint
+        //         break;
+        //     case Global.Shared_Hints.TUT_HINTMENU:
+        //         ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.ExtraMenu, "Hint Menu");
+        //         break;
+        //     case Global.Shared_Hints.TUT_SELECTIONRAY:
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.SelectionRay, "Press to Select Trash\nOnce selected no need to press more");
+        //         break;
+        //     case Global.Shared_Hints.TUT_CANCELSELECTION:
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.CancelSelection, "\t\t\t\t\tCancel Selection");
+        //         break;
+        //     case Global.Shared_Hints.TUT_GRAB:
+        //         ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Reach the frame\nPress to Grab");
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, "You can do it\nwith any hand");
+        //         break;
+        //     case Global.Shared_Hints.TUT_THROW:
+        //         ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Reach a toy! Press\nto Grab & Throw");
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, "You can do it\nwith any hand");
+        //         break;
+        //     case Global.Shared_Hints.TUT_GOAWAY:
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "W/ trash selected\nKeep pressing &\nsay: Go Away");
+        //         break;
+        //     case Global.Shared_Hints.TUT_IAMREADY:
+        //         ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Sit in the circle\nKeep pressing & say:\nI am Ready");
+        //         break;
+        //     default:
+        //         break;
+        // }
+    }
+
+    private string SelectTextHint(Hand hand, Global.Shared_Hints hint, string newText = null) {
+        if (newText != null) {
+            return newText;
+        } // else default hint
+        else { 
+            string hintText;
+            switch (hint)
+            {
+                case Global.Shared_Hints.TUT_TELEPORT:
+                    hintText = "Teleport";
+                    break;
+                case Global.Shared_Hints.TUT_HINTMENU:
+                    hintText = "Hint Menu";
+                    break;
+                case Global.Shared_Hints.TUT_SELECTIONRAY:
+                    hintText = "Press to Select Trash\nOnce selected no need to press more";
+                    break;
+                case Global.Shared_Hints.TUT_CANCELSELECTION:
+                    hintText = "\t\t\t\t\tCancel Selection";
+                    break;
+                case Global.Shared_Hints.TUT_GRAB:
+                    hintText = hand == instance.leftHand ? "Reach the frame\nPress to Grab" : "You can do it\nwith any hand";
+                    break;
+                case Global.Shared_Hints.TUT_THROW:
+                    hintText = hand == instance.leftHand ? "Reach a toy! Press\nto Grab & Throw" : "You can do it\nwith any hand";
+                    break;
+                case Global.Shared_Hints.TUT_GOAWAY:
+                    hintText = "W/ trash selected\nKeep pressing &\nsay: Go Away";
+                    break;
+                case Global.Shared_Hints.TUT_IAMREADY:
+                    hintText = "Sit in the circle\nKeep pressing & say:\nI am Ready";
+                    break;
+                default:
+                    hintText = "";
+                    break;
+            }
+            return hintText;
         }
     }
 
@@ -158,7 +229,7 @@ public class ControllerHintsManager : MonoBehaviour {
             case Global.Shared_Hints.TUT_SELECTIONRAY:
                 // for some reason show button hint does not work here
                 // ControllerButtonHints.ShowButtonHint(instance.rightHand, instance.actionsSet.SelectionRay);
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.SelectionRay, "Go for it :)");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.SelectionRay, SelectTextHint(instance.rightHand, hint));
                 break;
             case Global.Shared_Hints.TUT_CANCELSELECTION:
                 ControllerButtonHints.ShowButtonHint(instance.rightHand, instance.actionsSet.CancelSelection);

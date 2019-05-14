@@ -71,7 +71,7 @@ Material:
     - _OcclusionStrength: 1
     - _Outline: 0
     - _Parallax: 0.02
-    - _RimPower: 1.1762608
+    - _RimPower: 1
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -81,5 +81,5 @@ Material:
     - _Color: {r: 0.8308824, g: 0.6842561, b: 0.4643166, a: 1}
     - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0.90588236, g: 0.16042069, b: 0.16042069, a: 1}
-    - _RimColor: {r: 0.90588236, g: 0.16042069, b: 0.16042069, a: 1}
+    - _OutlineColor: {r: 0.90588236, g: 0.16042045, b: 0.16042045, a: 1}
+    - _RimColor: {r: 0.90588236, g: 0.16042045, b: 0.16042045, a: 1}

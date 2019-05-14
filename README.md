@@ -1,8 +1,11 @@
-# Dark \|/ Light
+# Dark \\|/ Light
 ## A VR experience for the HTC Vive
 
 ### Description
 A High Immersion VR experience about forgiving oneself and starting a path of self-conscience, healing and inner peace.
+
+### Project Duration
+It took me 3 months to complete - to learn 3D modelling, making the character and scenes
 
 ### Video Link
 

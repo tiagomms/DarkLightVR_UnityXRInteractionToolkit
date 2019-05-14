@@ -112,6 +112,11 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
         EventManager.StopListening(Global.Shared_Events.GO_AWAY_INPUT, TriggerFadingAnimation);
 
         TrashMaterialsColorUpdate(instance.animationStartingColor);
+        
+        // rim power
+        SelectedMaterialsAnimationUpdate(1.0f);
+        // alpha
+        FadingMaterialsAnimationUpdate(1.0f);
     }
 
 
@@ -152,11 +157,19 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
 
     private void SetFallingTrashAnimations()
     {
-        SwapTrashMaterials(TrashGOMode.SELECTED);
+        // to avoid overload on a single frame
+        StartCoroutine(SetFallingTrashAnimations_Coroutine());
+    }
+
+    private IEnumerator SetFallingTrashAnimations_Coroutine()
+    {
+        yield return new WaitForEndOfFrame();
 
         SetSelectedMaterialsAnimation();
-        
         SetColorTransitionAnimation();
+        
+        yield return new WaitForEndOfFrame();
+        SwapTrashMaterials(TrashGOMode.SELECTED);
     }
 
     /*

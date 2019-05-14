@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.016493501, g: 0.019550316, b: 0.02254319, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2000,8 +2000,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenShootingRays: 3
   lSRayEndPosition: {fileID: 446173951}
-  trashObjectsHandling: {fileID: 1138262441}
   becomingLightBeam: {fileID: 238563988}
+  rightHand: {fileID: 1493419351}
 --- !u!114 &133514454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13015,6 +13015,10 @@ Prefab:
     - target: {fileID: 4640618993962938, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
       propertyPath: m_LocalScale.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161078571903526, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
@@ -28809,6 +28813,22 @@ Prefab:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400148, guid: aa1256a546217614390026f492f23cec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 400148, guid: aa1256a546217614390026f492f23cec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 400234, guid: aa1256a546217614390026f492f23cec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.114
+      objectReference: {fileID: 0}
+    - target: {fileID: 400234, guid: aa1256a546217614390026f492f23cec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.154
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa1256a546217614390026f492f23cec, type: 3}
   m_IsPrefabParent: 0
@@ -35068,12 +35088,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1134799552}
   m_Mesh: {fileID: 4301324, guid: db85cb7ca506fa4409c92fb892a09f5a, type: 3}
---- !u!114 &1138262441 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114810369061259470, guid: cc6090cc273cdfe468e7b45b2be8f46d,
-    type: 2}
-  m_PrefabInternal: {fileID: 133514447}
-  m_Script: {fileID: 11500000, guid: f6e0347039ec64e4dabab1333f7abe76, type: 3}
 --- !u!1 &1144119251
 GameObject:
   m_ObjectHideFlags: 0
@@ -54336,6 +54350,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1493419351 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114505200590914872, guid: 9aa0f518f19ce7248a49ca72591395aa,
+    type: 2}
+  m_PrefabInternal: {fileID: 2085467195}
+  m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
 --- !u!1 &1496145573
 GameObject:
   m_ObjectHideFlags: 0

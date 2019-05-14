@@ -1869,8 +1869,8 @@ MonoBehaviour:
   fromLevel: 0
   sceneName: Level2 - Rock Bottom Part 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 2
-  fadeOutTime: 2
+  fadeInTime: 0.5
+  fadeOutTime: 0.5
 --- !u!114 &259371430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5963,6 +5963,10 @@ Prefab:
     - target: {fileID: 1962672598437464, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161078571903526, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
