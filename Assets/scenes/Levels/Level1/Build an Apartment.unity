@@ -1869,8 +1869,8 @@ MonoBehaviour:
   fromLevel: 0
   sceneName: Level2 - Rock Bottom Part 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 2
-  fadeOutTime: 2
+  fadeInTime: 0.5
+  fadeOutTime: 0.5
 --- !u!114 &259371430
 MonoBehaviour:
   m_ObjectHideFlags: 0
