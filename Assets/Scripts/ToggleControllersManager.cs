@@ -8,16 +8,31 @@ using Valve.VR.InteractionSystem;
 
 public class ToggleControllersManager : MonoBehaviour
 {
+    private static ToggleControllersManager _instance;
+    public static ToggleControllersManager instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<ToggleControllersManager>();
+            }
+
+            return _instance;
+        }
+    }
+
     private Teleport teleportScript;
     private VoiceCommandManager voiceCommandManagerScript;
     private ToggleLightBeam toggleLightBeamScript;
     private ControllerHintsManager hintManagerScript;
 
     private void Awake() {
-        teleportScript = Teleport.instance;
-        hintManagerScript = ControllerHintsManager.instance;
-        toggleLightBeamScript = ToggleLightBeam.instance;
-        voiceCommandManagerScript = gameObject.GetComponent<VoiceCommandManager>();
+        _instance = this;
+        instance.teleportScript = Teleport.instance;
+        instance.hintManagerScript = ControllerHintsManager.instance;
+        instance.toggleLightBeamScript = ToggleLightBeam.instance;
+        instance.voiceCommandManagerScript = gameObject.GetComponent<VoiceCommandManager>();
     }
 
     private void OnEnable()
@@ -39,34 +54,53 @@ public class ToggleControllersManager : MonoBehaviour
 
     private void SetTeleportScript()
     {
-        if (teleportScript != null)
+        if (instance.teleportScript != null)
         {
-            teleportScript.enabled = Global.Shared_Controllers.TELEPORT;
+            StartCoroutine(SetTeleportEnable());
         }
+    }
+
+    private IEnumerator SetTeleportEnable()
+    {
+        yield return new WaitForEndOfFrame();
+        instance.teleportScript.enabled = Global.Shared_Controllers.TELEPORT;
     }
 
     private void SetVoiceCommandScript()
     {
-        if (voiceCommandManagerScript != null)
+        if (instance.voiceCommandManagerScript != null)
         {
-            voiceCommandManagerScript.enabled = Global.Shared_Controllers.VOICECOMMAND;
+            instance.voiceCommandManagerScript.enabled = Global.Shared_Controllers.VOICECOMMAND;
         }
     }
 
     private void SetToggleLightBeamScript()
     {
-        if (toggleLightBeamScript != null)
+        if (instance.toggleLightBeamScript != null)
         {
             // gameObject of toggleLightBeamScript is the parent of all light beam variations
             // so by setting active / inactive this object, it blocks the light beams
-            toggleLightBeamScript.gameObject.SetActive(Global.Shared_Controllers.SELECTION_RAY);
+            instance.toggleLightBeamScript.gameObject.SetActive(Global.Shared_Controllers.SELECTION_RAY);
         }
     }
     private void SetHintManagerScript()
     {
-        if (hintManagerScript != null)
+        if (instance.hintManagerScript != null)
         {
-            hintManagerScript.enabled = Global.Shared_Controllers.HINTMENU;
+            instance.hintManagerScript.enabled = Global.Shared_Controllers.HINTMENU;
         }
+    }
+
+    public void EnablePlayerOnEverything()
+    {
+        Global.Shared_Controllers.TELEPORT = true;
+        Global.Shared_Controllers.SELECTION_RAY = true;
+        Global.Shared_Controllers.VOICECOMMAND = true;
+        Global.Shared_Controllers.HINTMENU = true;
+
+        EventManager.TriggerEvent(Global.Shared_Events.SET_TELEPORT);
+        EventManager.TriggerEvent(Global.Shared_Events.SET_SELECTION_RAY);
+        EventManager.TriggerEvent(Global.Shared_Events.SET_VOICECOMMAND);
+        EventManager.TriggerEvent(Global.Shared_Events.SET_HINTMENU);
     }
 }

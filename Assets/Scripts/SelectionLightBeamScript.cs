@@ -183,20 +183,22 @@ public class SelectionLightBeamScript : MonoBehaviour
 
     private IEnumerator HitTrashObjects(Ray ray, float maxDistance)
     {
-        isHittingObjects = false;
-        hitObjects = Physics.SphereCastAll(ray, rayRadius, maxDistance, trashLayer);
-        if (hitObjects.Length != 0) {
-            foreach (RaycastHit obj in hitObjects)
-            {
-                trashObjectHandling.HitObject(obj.transform.name);
+        if (trashObjectHandling != null) {
+            isHittingObjects = false;
+            hitObjects = Physics.SphereCastAll(ray, rayRadius, maxDistance, trashLayer);
+            if (hitObjects.Length != 0) {
+                foreach (RaycastHit obj in hitObjects)
+                {
+                    trashObjectHandling.HitObject(obj.transform.name);
+                }
+                trashObjectHandling.TriggerSelection();
+                
+                // for tutorials in level 1
+                EventManager.TriggerEvent(Global.GetSharedHintString(Global.Shared_Hints.TUT_SELECTIONRAY));
             }
-            trashObjectHandling.TriggerSelection();
-            
-            // for tutorials in level 1
-            EventManager.TriggerEvent(Global.GetSharedHintString(Global.Shared_Hints.TUT_SELECTIONRAY));
+            yield return new WaitForSeconds(.5f);
+            isHittingObjects = true;
         }
-        yield return new WaitForSeconds(.5f);
-        isHittingObjects = true;
     }
 
     private IEnumerator TurnOffRayAnimation()

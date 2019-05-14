@@ -55,11 +55,11 @@ public class ControllerHintsManager : MonoBehaviour {
         }
 
         if (Global.Shared_Controllers.MEDITATION_CIRCLE_READY) {
-            voiceStrAux += "\nI am Ready (meditation)"; 
+            voiceStrAux += "\nI am Ready \n(sit in meditation)"; 
         }
 
         if (Global.Shared_Controllers.VOICECOMMAND && voiceStrAux != "") {
-            ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Voice Input:" + voiceStrAux, false);
+            ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Press for Voice Input:" + voiceStrAux, false);
         }
 
         ControllerButtonHints.ShowTextHint(instance.leftHand, instance.actionsSet.GrabPinch, "Grab", false);
@@ -99,7 +99,7 @@ public class ControllerHintsManager : MonoBehaviour {
                 ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.GrabPinch, "Grab & Throw");
                 break;
             case Global.Shared_Hints.TUT_GOAWAY:
-                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "W/ trash selected\nPress & say: Go Away");
+                ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "W/ trash selected\nKeep pressing &\nsay: Go Away");
                 break;
             case Global.Shared_Hints.TUT_IAMREADY:
                 ControllerButtonHints.ShowTextHint(instance.rightHand, instance.actionsSet.VoiceInput, "Sitting in the circle\nPress & say: I am Ready");

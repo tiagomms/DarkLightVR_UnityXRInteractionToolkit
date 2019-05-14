@@ -78,6 +78,61 @@
     {
       "name": "/actions/buggy/in/Reset",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/InteractUI",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/Teleport",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/Pose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/darkLightVR/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/darkLightVR/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/darkLightVR/in/Squeeze",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/darkLightVR/in/VoiceInput",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/SelectionRay",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/CancelSelection",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/in/ExtraMenu",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/darkLightVR/out/Haptic",
+      "type": "vibration"
     }
   ],
   "action_sets": [
@@ -92,6 +147,10 @@
     {
       "name": "/actions/buggy",
       "usage": "single"
+    },
+    {
+      "name": "/actions/darkLightVR",
+      "usage": "leftright"
     }
   ],
   "default_bindings": [
@@ -123,12 +182,24 @@
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
       "/actions/default/in/Pose": "Pose",
       "/actions/default/out/Haptic": "Haptic",
-      "/actions/platformer/in/Move": "Move",
-      "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/VoiceInput": "Voice Input",
       "/actions/default/in/SelectionRay": "Selection Ray",
       "/actions/default/in/CancelSelection": "Cancel Selection",
-      "/actions/default/in/ExtraMenu": "Extra Menu"
+      "/actions/default/in/ExtraMenu": "Extra Menu",
+      "/actions/platformer/in/Move": "Move",
+      "/actions/platformer/in/Jump": "Jump",
+      "/actions/darkLightVR/in/InteractUI": "Interact With UI",
+      "/actions/darkLightVR/in/Teleport": "Teleport",
+      "/actions/darkLightVR/in/GrabPinch": "Grab Pinch",
+      "/actions/darkLightVR/in/GrabGrip": "Grab Grip",
+      "/actions/darkLightVR/in/SkeletonLeftHand": "Skeleton (Left)",
+      "/actions/darkLightVR/in/SkeletonRightHand": "Skeleton (Right)",
+      "/actions/darkLightVR/in/Pose": "Pose",
+      "/actions/darkLightVR/out/Haptic": "Haptic",
+      "/actions/darkLightVR/in/VoiceInput": "Voice Input",
+      "/actions/darkLightVR/in/SelectionRay": "Selection Ray",
+      "/actions/darkLightVR/in/CancelSelection": "Cancel Selection",
+      "/actions/darkLightVR/in/ExtraMenu": "Hint Menu"
     }
   ]
 }

@@ -8,6 +8,8 @@ public class LightSpiritAnimationManager : MonoBehaviour {
     private bool isLockedAnimOn = false;
     private bool isRandomAnimOn = false;
 
+    public static float FADE_TO_DURATION = 5.0f;
+
     public bool IsLockedAnimOn
     {
         get
@@ -83,7 +85,7 @@ public class LightSpiritAnimationManager : MonoBehaviour {
     }
 
     public void FadeToAlphaLightSpirit(float alphaTo = 0f) {
-        LeanTween.alpha(gameObject, alphaTo, 5f)
+        LeanTween.alpha(gameObject, alphaTo, FADE_TO_DURATION)
             .setEase(LeanTweenType.easeInOutSine);
     }
     public void FadeBackToOriginalAlphaLightSpirit() {

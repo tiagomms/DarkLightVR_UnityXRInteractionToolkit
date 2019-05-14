@@ -164,10 +164,10 @@ public class AudioFilePlayer : MonoBehaviour {
         }
     }
 
-    public void FadeInCurrentAudioFile(float targetVolume, float duration)
+    public void FadeInCurrentAudioFile(float duration)
     {
 		if (audioFiles != null && currentAudioFileIndex < audioFiles.Length) {
-			AudioManager.FadeIn(audioFiles[currentAudioFileIndex].audioName, targetVolume, duration);
+			AudioManager.FadeIn(audioFiles[currentAudioFileIndex].audioName, audioFiles[currentAudioFileIndex].volume, duration);
 			playingCurrentFile = true;
 
             InvokeRepeating("IsAudioFilePlayerStopped", audioFiles[currentAudioFileIndex].audioClip.length, stoppedRepeatRate);

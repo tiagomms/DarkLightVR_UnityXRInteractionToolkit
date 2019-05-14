@@ -83,7 +83,7 @@ public class Level5EventManager : MonoBehaviour {
 
     private void HandleNarratorEnded()
     {
-		LeanTween.alpha(lightSpiritNarrator.gameObject, 0, 3f)
+		LeanTween.alpha(lightSpiritNarrator.gameObject, 0, 7f)
 			.setEase(LeanTweenType.easeInQuad)
 			.setOnComplete(DestroyNarrator);
     }

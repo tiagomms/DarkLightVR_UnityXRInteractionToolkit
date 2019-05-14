@@ -6,6 +6,7 @@ using System;
 
 public class Level4StonePathwayAnimation : MonoBehaviour {
 
+	public float stoneAnimDuration = 2.0f;
 	private class Stone {
 		public string 		stoneName;
 		public GameObject 	stoneObj;
@@ -57,7 +58,7 @@ public class Level4StonePathwayAnimation : MonoBehaviour {
 			stoneCurColor.a = 0f;
         	currentStone.stoneRend.material.color = stoneCurColor;
 
-            LeanTween.alpha(currentStone.stoneObj, 1f, 3f)
+            LeanTween.alpha(currentStone.stoneObj, 1f, stoneAnimDuration)
                 .setEase(LeanTweenType.animationCurve)
 				.setOnComplete(HandleStoneAnimation);
 

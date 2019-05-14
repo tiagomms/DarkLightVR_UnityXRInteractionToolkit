@@ -33,6 +33,7 @@ public static class Global
         public static string NARRATOR_EVENT_BETWEEN_CLIPS = "NARRATOR_EVENT_BETWEEN_CLIPS";
         public static string NARRATOR_ENDED = "NARRATOR_ENDED";
         public static string SHOW_MEDITATION_CIRCLE = "SHOW_MEDITATION_CIRCLE";
+        static public string SET_DONTDESTROY_OBJECTS = "SET_DONTDESTROY_OBJECTS";
 
     }
 
@@ -97,6 +98,7 @@ public static class Global
 
         public static string LIGHT_SPIRITS_STOP = "LIGHT_SPIRITS_STOP";
         public static string LIGHT_SPIRITS_RAISE_ARM = "LIGHT_SPIRITS_RAISE_ARM";
+        public static string MOVE_SPAWN_LOCATIONS = "MOVE_SPAWN_LOCATIONS";
     }
     public static class Level5_Events {
 

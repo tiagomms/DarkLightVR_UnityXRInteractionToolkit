@@ -13,7 +13,7 @@ public class Level6AnimationsManager : MonoBehaviour {
 
     private IEnumerator FallTrashOutside()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
 		if (trashOutsideParent != null) {
 			trashOutsideParent.FallAndStopChildRigidbodiesAnimation();
 		}

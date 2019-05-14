@@ -69,8 +69,8 @@ public class LightSpiritSelectionRay : MonoBehaviour {
 		isRayActivated = true;
 
 		lineRendererObject.SetActive(true);
+        surroundingPSObject.SetActive(true);
         surroundingPSBeam.Play();
-        // surroundingPSObject.SetActive(true);
 		InvokeRepeating("UpdateRayFinalPosition", 0f, 1f);
         // DebugManager.Info("LS Ray Triggered");
 	}

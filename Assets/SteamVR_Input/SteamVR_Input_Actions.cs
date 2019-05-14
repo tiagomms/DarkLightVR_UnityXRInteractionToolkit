@@ -55,6 +55,32 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_buggy_Reset;
         
+        private static SteamVR_Action_Boolean p_darkLightVR_InteractUI;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_Teleport;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_GrabPinch;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_GrabGrip;
+        
+        private static SteamVR_Action_Pose p_darkLightVR_Pose;
+        
+        private static SteamVR_Action_Skeleton p_darkLightVR_SkeletonLeftHand;
+        
+        private static SteamVR_Action_Skeleton p_darkLightVR_SkeletonRightHand;
+        
+        private static SteamVR_Action_Single p_darkLightVR_Squeeze;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_VoiceInput;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_SelectionRay;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_CancelSelection;
+        
+        private static SteamVR_Action_Boolean p_darkLightVR_ExtraMenu;
+        
+        private static SteamVR_Action_Vibration p_darkLightVR_Haptic;
+        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -207,6 +233,110 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean darkLightVR_InteractUI
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_InteractUI.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_Teleport
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_Teleport.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_GrabPinch
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_GrabPinch.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_GrabGrip
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_GrabGrip.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Pose darkLightVR_Pose
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_Pose.GetCopy <SteamVR_Action_Pose>();
+            }
+        }
+        
+        public static SteamVR_Action_Skeleton darkLightVR_SkeletonLeftHand
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_SkeletonLeftHand.GetCopy <SteamVR_Action_Skeleton>();
+            }
+        }
+        
+        public static SteamVR_Action_Skeleton darkLightVR_SkeletonRightHand
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_SkeletonRightHand.GetCopy <SteamVR_Action_Skeleton>();
+            }
+        }
+        
+        public static SteamVR_Action_Single darkLightVR_Squeeze
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_Squeeze.GetCopy <SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_VoiceInput
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_VoiceInput.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_SelectionRay
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_SelectionRay.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_CancelSelection
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_CancelSelection.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean darkLightVR_ExtraMenu
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_ExtraMenu.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Vibration darkLightVR_Haptic
+        {
+            get
+            {
+                return SteamVR_Actions.p_darkLightVR_Haptic.GetCopy <SteamVR_Action_Vibration>();
+            }
+        }
+        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[]
@@ -229,7 +359,20 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Steering,
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.buggy_Brake,
-                    SteamVR_Actions.buggy_Reset};
+                    SteamVR_Actions.buggy_Reset,
+                    SteamVR_Actions.darkLightVR_InteractUI,
+                    SteamVR_Actions.darkLightVR_Teleport,
+                    SteamVR_Actions.darkLightVR_GrabPinch,
+                    SteamVR_Actions.darkLightVR_GrabGrip,
+                    SteamVR_Actions.darkLightVR_Pose,
+                    SteamVR_Actions.darkLightVR_SkeletonLeftHand,
+                    SteamVR_Actions.darkLightVR_SkeletonRightHand,
+                    SteamVR_Actions.darkLightVR_Squeeze,
+                    SteamVR_Actions.darkLightVR_VoiceInput,
+                    SteamVR_Actions.darkLightVR_SelectionRay,
+                    SteamVR_Actions.darkLightVR_CancelSelection,
+                    SteamVR_Actions.darkLightVR_ExtraMenu,
+                    SteamVR_Actions.darkLightVR_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[]
             {
                     SteamVR_Actions.default_InteractUI,
@@ -249,16 +392,31 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Steering,
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.buggy_Brake,
-                    SteamVR_Actions.buggy_Reset};
+                    SteamVR_Actions.buggy_Reset,
+                    SteamVR_Actions.darkLightVR_InteractUI,
+                    SteamVR_Actions.darkLightVR_Teleport,
+                    SteamVR_Actions.darkLightVR_GrabPinch,
+                    SteamVR_Actions.darkLightVR_GrabGrip,
+                    SteamVR_Actions.darkLightVR_Pose,
+                    SteamVR_Actions.darkLightVR_SkeletonLeftHand,
+                    SteamVR_Actions.darkLightVR_SkeletonRightHand,
+                    SteamVR_Actions.darkLightVR_Squeeze,
+                    SteamVR_Actions.darkLightVR_VoiceInput,
+                    SteamVR_Actions.darkLightVR_SelectionRay,
+                    SteamVR_Actions.darkLightVR_CancelSelection,
+                    SteamVR_Actions.darkLightVR_ExtraMenu};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[]
             {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.default_Haptic,
+                    SteamVR_Actions.darkLightVR_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[]
             {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.default_Haptic,
+                    SteamVR_Actions.darkLightVR_Haptic};
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[]
             {
-                    SteamVR_Actions.default_Pose};
+                    SteamVR_Actions.default_Pose,
+                    SteamVR_Actions.darkLightVR_Pose};
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[]
             {
                     SteamVR_Actions.default_InteractUI,
@@ -271,11 +429,20 @@ namespace Valve.VR
                     SteamVR_Actions.default_ExtraMenu,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
-                    SteamVR_Actions.buggy_Reset};
+                    SteamVR_Actions.buggy_Reset,
+                    SteamVR_Actions.darkLightVR_InteractUI,
+                    SteamVR_Actions.darkLightVR_Teleport,
+                    SteamVR_Actions.darkLightVR_GrabPinch,
+                    SteamVR_Actions.darkLightVR_GrabGrip,
+                    SteamVR_Actions.darkLightVR_VoiceInput,
+                    SteamVR_Actions.darkLightVR_SelectionRay,
+                    SteamVR_Actions.darkLightVR_CancelSelection,
+                    SteamVR_Actions.darkLightVR_ExtraMenu};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[]
             {
                     SteamVR_Actions.default_Squeeze,
-                    SteamVR_Actions.buggy_Throttle};
+                    SteamVR_Actions.buggy_Throttle,
+                    SteamVR_Actions.darkLightVR_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[]
             {
                     SteamVR_Actions.platformer_Move,
@@ -284,7 +451,9 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[]
             {
                     SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand};
+                    SteamVR_Actions.default_SkeletonRightHand,
+                    SteamVR_Actions.darkLightVR_SkeletonLeftHand,
+                    SteamVR_Actions.darkLightVR_SkeletonRightHand};
             Valve.VR.SteamVR_Input.actionsNonPoseNonSkeletonIn = new Valve.VR.ISteamVR_Action_In[]
             {
                     SteamVR_Actions.default_InteractUI,
@@ -301,7 +470,16 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Steering,
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.buggy_Brake,
-                    SteamVR_Actions.buggy_Reset};
+                    SteamVR_Actions.buggy_Reset,
+                    SteamVR_Actions.darkLightVR_InteractUI,
+                    SteamVR_Actions.darkLightVR_Teleport,
+                    SteamVR_Actions.darkLightVR_GrabPinch,
+                    SteamVR_Actions.darkLightVR_GrabGrip,
+                    SteamVR_Actions.darkLightVR_Squeeze,
+                    SteamVR_Actions.darkLightVR_VoiceInput,
+                    SteamVR_Actions.darkLightVR_SelectionRay,
+                    SteamVR_Actions.darkLightVR_CancelSelection,
+                    SteamVR_Actions.darkLightVR_ExtraMenu};
         }
         
         private static void PreInitActions()
@@ -325,6 +503,19 @@ namespace Valve.VR
             SteamVR_Actions.p_buggy_Throttle = ((SteamVR_Action_Single)(SteamVR_Action.Create <SteamVR_Action_Single>("/actions/buggy/in/Throttle")));
             SteamVR_Actions.p_buggy_Brake = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/buggy/in/Brake")));
             SteamVR_Actions.p_buggy_Reset = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/buggy/in/Reset")));
+            SteamVR_Actions.p_darkLightVR_InteractUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/InteractUI")));
+            SteamVR_Actions.p_darkLightVR_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/Teleport")));
+            SteamVR_Actions.p_darkLightVR_GrabPinch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/GrabPinch")));
+            SteamVR_Actions.p_darkLightVR_GrabGrip = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/GrabGrip")));
+            SteamVR_Actions.p_darkLightVR_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create <SteamVR_Action_Pose>("/actions/darkLightVR/in/Pose")));
+            SteamVR_Actions.p_darkLightVR_SkeletonLeftHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create <SteamVR_Action_Skeleton>("/actions/darkLightVR/in/SkeletonLeftHand")));
+            SteamVR_Actions.p_darkLightVR_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create <SteamVR_Action_Skeleton>("/actions/darkLightVR/in/SkeletonRightHand")));
+            SteamVR_Actions.p_darkLightVR_Squeeze = ((SteamVR_Action_Single)(SteamVR_Action.Create <SteamVR_Action_Single>("/actions/darkLightVR/in/Squeeze")));
+            SteamVR_Actions.p_darkLightVR_VoiceInput = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/VoiceInput")));
+            SteamVR_Actions.p_darkLightVR_SelectionRay = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/SelectionRay")));
+            SteamVR_Actions.p_darkLightVR_CancelSelection = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/CancelSelection")));
+            SteamVR_Actions.p_darkLightVR_ExtraMenu = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/darkLightVR/in/ExtraMenu")));
+            SteamVR_Actions.p_darkLightVR_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create <SteamVR_Action_Vibration>("/actions/darkLightVR/out/Haptic")));
         }
     }
 }

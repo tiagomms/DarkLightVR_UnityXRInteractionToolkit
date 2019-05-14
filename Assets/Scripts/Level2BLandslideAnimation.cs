@@ -33,8 +33,10 @@ public class Level2BLandslideAnimation : MonoBehaviour {
 				dynamicObjectsDict.Add(rb.gameObject.name, rb);
 			}
 		}
-		Physics.gravity = new Vector3(0f, -0.18f, 0f);
-		triggerGravityPlane.SetActive(false);
+		
+		if (triggerGravityPlane != null) {
+			triggerGravityPlane.SetActive(false);
+		}
 	}
 
     private void OnEnable()

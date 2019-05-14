@@ -21,6 +21,7 @@ public class NarratorAudioFilePlayer : AudioFilePlayer {
     public bool triggerEventsBetweenClips = false;
     public bool triggerEventOnceOver = false;
 
+    [HideInInspector]
     public int CLIP_INDEX = 0;
 
     protected override void Awake()
@@ -53,8 +54,13 @@ public class NarratorAudioFilePlayer : AudioFilePlayer {
     {
         if (base.PlayCurrentAudioFile(delay)) {
             float lowerVolumeDuration = audioFiles[currentAudioFileIndex].audioClip.length;
-            MusicAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
-            MeditationAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
+            
+            if (MusicAudioFilePlayer.instance != null) {
+                MusicAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
+            }
+            if (MeditationAudioFilePlayer.instance != null) {
+                MeditationAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
+            }
             
             return true;
         }

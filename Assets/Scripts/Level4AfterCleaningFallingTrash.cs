@@ -12,9 +12,8 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 	private Material 	blendedSkybox;
 
 	public Material[] 	treeMaterialsToAnimate;
-	public float 		timeBetweenAnimations = 5f;
+	public float 		timeBetweenAnimations = 4f;
 	public float 		timeForSkyboxBlendAnimation = 10f;
-	private int 		currentMatIndex = 0;
 	
 	private void Awake()
 	{
@@ -23,9 +22,9 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 			platform.GetComponent<Renderer>().material.color = platformStartingColor;
 
 			// setting all mats alpha to 0
-			for (currentMatIndex = 0; currentMatIndex < treeMaterialsToAnimate.Length; currentMatIndex++)
+			for (int i = 0; i < treeMaterialsToAnimate.Length; i++)
 			{
-				AppearingMaterialAnimationUpdate(0f);
+				AppearingMaterialAnimationUpdate(0f, treeMaterialsToAnimate[i]);
 			}
 
 			blendedSkybox = RenderSettings.skybox;
@@ -39,10 +38,11 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
     private void OnDisable()
     {
         EventManager.StopListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, StartAfterMiracleAnimations);
+
 		// to make sure materials stay ok
-        for (currentMatIndex = 0; currentMatIndex < treeMaterialsToAnimate.Length; currentMatIndex++)
+        for (int i = 0; i < treeMaterialsToAnimate.Length; i++)
         {
-            AppearingMaterialAnimationUpdate(1f);
+            AppearingMaterialAnimationUpdate(1f, treeMaterialsToAnimate[i]);
         }
         BlendSkyboxUpdate(0f);
     }
@@ -54,6 +54,11 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 
     private IEnumerator HandleAfterMiracleAnimations()
     {
+		// set trashobjects handling in player selection ray
+		Level4AnimationsManager.instance.SetTrashObjectsHandlingIntoPlayerSelectionRay();
+		
+        // stop ls rays
+        LightSpiritsController.instance.DisableAllLSRays();
 
 		// change platform color
 		LeanTween.color(platform, platformRealColor, timeForSkyboxBlendAnimation).setEase(LeanTweenType.easeInExpo);
@@ -65,22 +70,34 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 
         yield return new WaitForSecondsRealtime(timeForSkyboxBlendAnimation);
 
-		// show meditation circle
-		EventManager.TriggerEvent(Global.Shared_Events.SHOW_MEDITATION_CIRCLE);
+        // lightspirits - lower their arms
+        LightSpiritsController.instance.SetActionToAllLightSpirits((int)LightSpiritsController.LSAnimations.UNLOAD_LIGHT_RAY);
 
-        // path starts appearing
-        EventManager.TriggerEvent(Global.Level4_Events.STONE_APPEAR);
+        // fade light spirits
+        LightSpiritsController.instance.FadeOutAllLightSpirits();
 
-		for (currentMatIndex = 0; currentMatIndex < treeMaterialsToAnimate.Length; currentMatIndex++)
+        // pop light spirits in next location
+        StartCoroutine(Level4LSAnimationsAroundPlatform.instance.StartLsAnimationsAroundPlatform());
+
+        // show meditation circle
+        EventManager.TriggerEvent(Global.Shared_Events.SHOW_MEDITATION_CIRCLE);
+
+		for (int i = 0; i < treeMaterialsToAnimate.Length; i++)
 		{
             LeanTween.value(gameObject, 0f, 1f, timeBetweenAnimations)
 				.setEase(LeanTweenType.easeInExpo)
-				.setOnUpdate((System.Action<float>)AppearingMaterialAnimationUpdate);
+				.setOnUpdate((System.Action<float, object>)AppearingMaterialAnimationUpdate)
+				.setOnUpdateParam(treeMaterialsToAnimate[i]);
 			yield return new WaitForSecondsRealtime(timeBetweenAnimations);
 		}
 
-    }
+        // path starts appearing
+        EventManager.TriggerEvent(Global.Level4_Events.STONE_APPEAR);
+		
+		// enable player on everything
+        ToggleControllersManager.instance.EnablePlayerOnEverything();
 
+    }
     private void BlendSkyboxUpdate(float blendValue)
     {
 		if (blendedSkybox != null) {
@@ -88,10 +105,11 @@ public class Level4AfterCleaningFallingTrash : MonoBehaviour {
 		}
     }
 
-    private void AppearingMaterialAnimationUpdate(float alpha)
+    private void AppearingMaterialAnimationUpdate(float alpha, object matObj)
     {
-		Color curColor = treeMaterialsToAnimate[currentMatIndex].color;
+		Material mat = (Material)matObj;
+		Color curColor = mat.color;
 		curColor.a = alpha;
-        treeMaterialsToAnimate[currentMatIndex].color = curColor;
+        mat.color = curColor;
     }
 }

@@ -5,34 +5,28 @@ using UnityEngine;
 using UnityEngine.Events;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
+using UnityEngine.SceneManagement;
+
 public class TransitionSceneManager : MonoBehaviour {
 	private SteamVR_LoadLevel steamVR_LoadLevel;
     private Dictionary<int, SceneFile> sceneFileDict;
 
-    private static TransitionSceneManager transitionSceneManager;
+    private static TransitionSceneManager _instance;
     public static TransitionSceneManager instance
     {
         get
         {
-            if (!transitionSceneManager)
+            if (_instance == null)
             {
-                transitionSceneManager = FindObjectOfType(typeof(TransitionSceneManager)) as TransitionSceneManager;
-
-                if (!transitionSceneManager)
-                {
-                    Debug.LogError("There needs to be one active TransitionSceneManager script on a GameObject in your scene.");
-                }
-                else
-                {
-                    transitionSceneManager.Init();
-                }
+                _instance = GameObject.FindObjectOfType<TransitionSceneManager>();
             }
 
-            return transitionSceneManager;
+            return _instance;
         }
     }    
 
-	private void Init() {
+	private void Awake() {
+        _instance = this;
         if (instance.steamVR_LoadLevel == null) {
     		instance.steamVR_LoadLevel = GetComponent<SteamVR_LoadLevel>();
         }
@@ -69,10 +63,11 @@ public class TransitionSceneManager : MonoBehaviour {
     }
 
     public void LoadSceneFile() {
-        SceneFile file = instance.sceneFileDict[(int)Global.currentLevel];
+        SceneFile file = instance.sceneFileDict[SceneManager.GetActiveScene().buildIndex];
         instance.steamVR_LoadLevel.levelName = file.sceneName;
         instance.steamVR_LoadLevel.fadeInTime = file.fadeInTime;
         instance.steamVR_LoadLevel.fadeOutTime = file.fadeOutTime;
         instance.steamVR_LoadLevel.backgroundColor = file.backgroundColor;
+        instance.steamVR_LoadLevel.loadingScreenWidthInMeters = 0;
     }
 }

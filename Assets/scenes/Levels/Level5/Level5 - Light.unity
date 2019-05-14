@@ -280,7 +280,7 @@ Transform:
   m_LocalScale: {x: 0.010000009, y: 0.009999998, z: 0.01000001}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &121119694
 MonoBehaviour:
@@ -403,6 +403,11 @@ Prefab:
     - target: {fileID: 4207972593140766, guid: 9aa0f518f19ce7248a49ca72591395aa, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182909108984888, guid: 9aa0f518f19ce7248a49ca72591395aa,
+        type: 2}
+      propertyPath: actionSet.actionSetPath
+      value: /actions/darkLightVR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9aa0f518f19ce7248a49ca72591395aa, type: 2}
@@ -560,7 +565,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4485758745762072, guid: cc6090cc273cdfe468e7b45b2be8f46d, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114901737453136892, guid: cc6090cc273cdfe468e7b45b2be8f46d,
         type: 2}
@@ -582,7 +587,30 @@ Prefab:
       propertyPath: meditationCircle
       value: 
       objectReference: {fileID: 1591649398}
-    m_RemovedComponents: []
+    - target: {fileID: 114322958794268086, guid: cc6090cc273cdfe468e7b45b2be8f46d,
+        type: 2}
+      propertyPath: sceneName
+      value: Level6 - The End
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322958794268086, guid: cc6090cc273cdfe468e7b45b2be8f46d,
+        type: 2}
+      propertyPath: fadeInTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114928495530813296, guid: cc6090cc273cdfe468e7b45b2be8f46d,
+        type: 2}
+      propertyPath: alwaysShowing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114541774318898914, guid: cc6090cc273cdfe468e7b45b2be8f46d,
+        type: 2}
+      propertyPath: cheatMode
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114083306508440816, guid: cc6090cc273cdfe468e7b45b2be8f46d, type: 2}
+    - {fileID: 114095383807761422, guid: cc6090cc273cdfe468e7b45b2be8f46d, type: 2}
+    - {fileID: 114200186955471392, guid: cc6090cc273cdfe468e7b45b2be8f46d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc6090cc273cdfe468e7b45b2be8f46d, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &714636841 stripped
@@ -652,7 +680,7 @@ MonoBehaviour:
   volume: 1
   spatialBlend: 1
   volumeRolloff: 1
-  minDistance: 15
+  minDistance: 30
   maxDistance: 50
   lowPitchRange: 0.75
   highPitchRange: 1.5
@@ -676,7 +704,7 @@ MonoBehaviour:
   volume: 1
   spatialBlend: 1
   volumeRolloff: 1
-  minDistance: 15
+  minDistance: 30
   maxDistance: 50
   lowPitchRange: 0.75
   highPitchRange: 1.5
@@ -700,7 +728,7 @@ MonoBehaviour:
   volume: 1
   spatialBlend: 1
   volumeRolloff: 1
-  minDistance: 15
+  minDistance: 30
   maxDistance: 50
   lowPitchRange: 0.75
   highPitchRange: 1.5
@@ -730,7 +758,7 @@ MonoBehaviour:
   automaticPlayEnabled: 0
   isToRestartAfterPlayingAll: 0
   triggerEventsBetweenClips: 1
-  triggerEventOnceOver: 0
+  triggerEventOnceOver: 1
   CLIP_INDEX: 0
 --- !u!1 &992995981
 GameObject:
@@ -832,34 +860,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1123371917
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1123371918}
-  m_Layer: 0
-  m_Name: Small_ANGEL_WHITE_TRANSFORM
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1123371918
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1123371917}
-  m_LocalRotation: {x: -0, y: 0.9514646, z: -0, w: -0.30775833}
-  m_LocalPosition: {x: 1.1, y: 0.09, z: 4.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 215.84799, z: 0}
 --- !u!1 &1142507034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 475244, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11445746, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 2}
       propertyPath: traceLayerMask.m_Bits
@@ -1308,7 +1308,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f24577de4aecf634d896401ff3f1bdde, type: 2}
+  - {fileID: 2100000, guid: daaa9f829ad27114a84a02491a98f248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1372,7 +1372,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4640618993962938, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4640618993962938, guid: b2ad308c02a32ab48b7db1633a71400e, type: 2}
       propertyPath: m_LocalScale.x

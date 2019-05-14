@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class TrashObjectsHandling : MonoBehaviour {
 
+    private static TrashObjectsHandling _instance;
+    public static TrashObjectsHandling instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<TrashObjectsHandling>();
+            }
+
+            return _instance;
+        }
+    }
     private const string TRASH_MATERIALS_PATH = "Materials/Shared/TrashMaterials/";
     public const float notConsciousScaleIncrease = 1.2f;
     private const float notConsciousMaxScale = 2.1f;
@@ -13,7 +26,7 @@ public class TrashObjectsHandling : MonoBehaviour {
     public Material[] normalMaterials;
     public Material[] selectedMaterials;
     public Material[] fadingMaterials;
-    private Material[] almostGoneMaterials;
+    public Material[] almostGoneMaterials;
 
     // utility if all objects are normal and disabled, no need to run the update function
     private int nbrNormalOrInactiveObjects = 0;    
@@ -24,6 +37,7 @@ public class TrashObjectsHandling : MonoBehaviour {
 
     private void Awake()
     {
+        _instance = this;
         SetupTrashObjectsAndMaterials();
     }
 
@@ -31,14 +45,14 @@ public class TrashObjectsHandling : MonoBehaviour {
     {
         string animatedMaterialsPath = TRASH_MATERIALS_PATH + "CONSCIOUSNESS_LEVEL/" + Global.GetConsciousnessLevelString(Global.ConsciousLevel) + "/";
         // setup materials - load them from their respective folders
-        normalMaterials = Resources.LoadAll<Material>(TRASH_MATERIALS_PATH + "0_NORMAL/");
-        selectedMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "1_SELECTED/");
-        fadingMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "2_FADING/");
+        instance.normalMaterials = Resources.LoadAll<Material>(TRASH_MATERIALS_PATH + "0_NORMAL/");
+        instance.selectedMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "1_SELECTED/");
+        instance.fadingMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "2_FADING/");
 
         // if consciousness level is becoming, objects do not fade completely
         if (Global.ConsciousLevel == Global.ConsciousnessLevel.BECOMING) {
-            minObjectFadingAlpha = becomingConsciousFadingAlphaDecrease;
-            almostGoneMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "3_ALMOST_GONE/");
+            instance.minObjectFadingAlpha = instance.becomingConsciousFadingAlphaDecrease;
+            instance.almostGoneMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "3_ALMOST_GONE/");
         }
 
         GameObject[] trashObjects = GameObject.FindGameObjectsWithTag("objectsToClean");
@@ -57,15 +71,15 @@ public class TrashObjectsHandling : MonoBehaviour {
             int i = 0;
             
             while (curMatIndex < matIndexes.Length) {
-                if (rend.sharedMaterials[curMatIndex].name.Contains(normalMaterials[i].name)) {
+                if (rend.sharedMaterials[curMatIndex].name.Contains(instance.normalMaterials[i].name)) {
                     matIndexes[curMatIndex] = i;// to Delete
-                    trashGODetails.GONormalMats[curMatIndex] = normalMaterials[i];
-                    trashGODetails.GOSelectedMats[curMatIndex] = selectedMaterials[i];
-                    trashGODetails.GOFadingMats[curMatIndex] = fadingMaterials[i];
+                    trashGODetails.GONormalMats[curMatIndex] = instance.normalMaterials[i];
+                    trashGODetails.GOSelectedMats[curMatIndex] = instance.selectedMaterials[i];
+                    trashGODetails.GOFadingMats[curMatIndex] = instance.fadingMaterials[i];
 
                     if (Global.ConsciousLevel == Global.ConsciousnessLevel.BECOMING)
                     {
-                        trashGODetails.GOAlmostGoneMats[curMatIndex] = almostGoneMaterials[i];
+                        trashGODetails.GOAlmostGoneMats[curMatIndex] = instance.almostGoneMaterials[i];
                     }
                     curMatIndex++;
 
@@ -78,9 +92,9 @@ public class TrashObjectsHandling : MonoBehaviour {
             trashGODetails.GObject = obj;
             trashGODetails.MaxGOScale = obj.transform.localScale * notConsciousMaxScale;
             
-            trashGODict.Add(obj.name, trashGODetails);
+            instance.trashGODict.Add(obj.name, trashGODetails);
         }
-        nbrNormalOrInactiveObjects = trashGODict.Count;
+        instance.nbrNormalOrInactiveObjects = instance.trashGODict.Count;
         
     }
 
@@ -110,18 +124,9 @@ public class TrashObjectsHandling : MonoBehaviour {
             .setLoopPingPong();
     }
 
-    // private void SelectedMaterialsAnimation_Part2()
-    // {
-    //     LeanTween.value(gameObject, 0.1f, 3f, 2f)
-    //         .setDelay(0.2f)
-    //         .setEase(LeanTweenType.easeInQuad)
-    //         .setOnUpdate((System.Action<float>)SelectedMaterialsAnimationUpdate)
-    //         .setOnComplete(SelectedMaterialsAnimation_Part1);
-    // }
-
     private void SelectedMaterialsAnimationUpdate(float value)
     {
-        foreach (Material sMat in selectedMaterials)
+        foreach (Material sMat in instance.selectedMaterials)
         {
             sMat.SetFloat("_RimPower", value);
         }
@@ -131,9 +136,9 @@ public class TrashObjectsHandling : MonoBehaviour {
     private void CreateFadingMaterialsAnimation()
     {   
         // before fading animation, get the rim power of all objects
-        beforeFadingRimPower = selectedMaterials[0].GetFloat("_RimPower");
+        instance.beforeFadingRimPower = instance.selectedMaterials[0].GetFloat("_RimPower");
 
-        LeanTween.value(gameObject, 1f, minObjectFadingAlpha, 3f)
+        LeanTween.value(gameObject, 1f, instance.minObjectFadingAlpha, 3f)
             .setEase(LeanTweenType.easeInQuad)
             .setOnUpdate((System.Action<float>)FadingMaterialsAnimationUpdate)
             .setOnComplete(FadingMaterialsAnimationComplete);
@@ -150,17 +155,17 @@ public class TrashObjectsHandling : MonoBehaviour {
             TriggerReappearing();
         } else if (Global.ConsciousLevel == Global.ConsciousnessLevel.BECOMING) {
             TriggerAlmostGone();
-            AlmostGoneMaterialsAnimationUpdate(minObjectFadingAlpha);
+            AlmostGoneMaterialsAnimationUpdate(instance.minObjectFadingAlpha);
             // reset fading materials
             FadingMaterialsAnimationUpdate(1f);
             // decrease min Object Fading Alpha
-            minObjectFadingAlpha = Mathf.Max(minObjectFadingAlpha * becomingConsciousFadingAlphaDecrease, 0.2f);
+            instance.minObjectFadingAlpha = Mathf.Max(instance.minObjectFadingAlpha * instance.becomingConsciousFadingAlphaDecrease, 0.2f);
         }
     }
 
     private void FadingMaterialsAnimationUpdate(float value)
     {
-        foreach(Material fMat in fadingMaterials) {
+        foreach(Material fMat in instance.fadingMaterials) {
             Color tintColor = fMat.GetColor("_ColorTint");
             Color rimColor = fMat.GetColor("_RimColor");
             Color outlineColor = fMat.GetColor("_OutlineColor");
@@ -174,12 +179,12 @@ public class TrashObjectsHandling : MonoBehaviour {
             fMat.SetColor("_OutlineColor", outlineColor);
 
             // rim power based on before fading value;
-            fMat.SetFloat("_RimPower", beforeFadingRimPower);
+            fMat.SetFloat("_RimPower", instance.beforeFadingRimPower);
         }
     }
     private void AlmostGoneMaterialsAnimationUpdate(float value)
     {
-        foreach(Material fMat in almostGoneMaterials) {
+        foreach(Material fMat in instance.almostGoneMaterials) {
             Color tintColor = fMat.GetColor("_ColorTint");
             Color rimColor = fMat.GetColor("_RimColor");
             Color outlineColor = fMat.GetColor("_OutlineColor");
@@ -193,7 +198,7 @@ public class TrashObjectsHandling : MonoBehaviour {
             fMat.SetColor("_OutlineColor", outlineColor);
 
             // rim power based on before fading value;
-            fMat.SetFloat("_RimPower", beforeFadingRimPower);
+            fMat.SetFloat("_RimPower", instance.beforeFadingRimPower);
         }
     }
 
@@ -218,7 +223,7 @@ public class TrashObjectsHandling : MonoBehaviour {
         objDetails.GORender.sharedMaterials = objDetails.GONormalMats;
         
         // increase Normal Objects;
-        nbrNormalOrInactiveObjects++;
+        instance.nbrNormalOrInactiveObjects++;
     }
 
     private void ChangeTrashObjectToSelected(TrashGODetails objDetails)
@@ -228,7 +233,7 @@ public class TrashObjectsHandling : MonoBehaviour {
         objDetails.GORender.sharedMaterials = objDetails.GOSelectedMats;
 
         // decrease normal objects;
-        nbrNormalOrInactiveObjects--;        
+        instance.nbrNormalOrInactiveObjects--;        
     }
     private void ChangeTrashObjectToFading(TrashGODetails objDetails)
     {
@@ -243,7 +248,7 @@ public class TrashObjectsHandling : MonoBehaviour {
         objDetails.GORender.sharedMaterials = objDetails.GOAlmostGoneMats;
 
         // these can be selected
-        nbrNormalOrInactiveObjects++;
+        instance.nbrNormalOrInactiveObjects++;
     }
     private void ChangeTrashObjectToInactive(TrashGODetails objDetails)
     {
@@ -252,18 +257,18 @@ public class TrashObjectsHandling : MonoBehaviour {
         objDetails.GORender.sharedMaterials = objDetails.GONormalMats;
         
         // increase Normal Objects;
-        nbrNormalOrInactiveObjects++;
+        instance.nbrNormalOrInactiveObjects++;
     }
 
 
     internal void HitObject(string name)
     {
-        trashGODict[name].IsHit = true;
+        instance.trashGODict[name].IsHit = true;
     }
 
     internal void TriggerSelection()
     {
-        foreach(KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict) {
+        foreach(KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict) {
             TrashGODetails objDetails = keyValuePair.Value;
             
             // handle Hit
@@ -290,7 +295,7 @@ public class TrashObjectsHandling : MonoBehaviour {
     internal void TriggerFading()
     {
         bool anyObjectFading = false;
-        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict)
+        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict)
         {
             TrashGODetails objDetails = keyValuePair.Value;
             // handle Transparency
@@ -308,7 +313,7 @@ public class TrashObjectsHandling : MonoBehaviour {
     }
     internal void TriggerInactive()
     {
-        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict)
+        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict)
         {
             TrashGODetails objDetails = keyValuePair.Value;
             // handle Inactive
@@ -319,7 +324,7 @@ public class TrashObjectsHandling : MonoBehaviour {
     }
     internal void TriggerReappearing()
     {
-        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict)
+        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict)
         {
             TrashGODetails objDetails = keyValuePair.Value;
             if (objDetails.GOMode == TrashGOMode.FADING) {
@@ -336,7 +341,7 @@ public class TrashObjectsHandling : MonoBehaviour {
     }
     internal void TriggerBackToNormal(TrashGOMode trashMode)
     {
-        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict)
+        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict)
         {
             TrashGODetails objDetails = keyValuePair.Value;
             if (objDetails.GOMode == trashMode) {
@@ -347,7 +352,7 @@ public class TrashObjectsHandling : MonoBehaviour {
 
     private void TriggerAlmostGone()
     {
-        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in trashGODict)
+        foreach (KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict)
         {
             TrashGODetails objDetails = keyValuePair.Value;
             if (objDetails.GOMode == TrashGOMode.FADING)
@@ -358,6 +363,6 @@ public class TrashObjectsHandling : MonoBehaviour {
     }
 
     internal bool anyObjectSelected() {
-        return nbrNormalOrInactiveObjects != trashGODict.Count;
+        return instance.nbrNormalOrInactiveObjects != instance.trashGODict.Count;
     }
 }

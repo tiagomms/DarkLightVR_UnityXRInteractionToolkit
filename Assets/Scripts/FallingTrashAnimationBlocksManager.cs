@@ -60,7 +60,7 @@ public class FallingTrashAnimationBlocksManager : MonoBehaviour {
         EventManager.TriggerEvent(Global.Level2_Events.TRASH_PILLING_UP);
     }
 
-    private void PopTrashBlock()
+    public void PopTrashBlock()
     {
 		StartCoroutine(TrashBlockAnimation());
     }
@@ -101,7 +101,7 @@ public class FallingTrashAnimationBlocksManager : MonoBehaviour {
 		currentBlock.gameObject.SetActive(true);
 		
 		currentBlock.FallAndStopChildRigidbodiesAnimation();
-		yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSecondsRealtime(1.0f);
 
 		if (playSound && trashSoundFile != null) {
 			AudioManager.PlayDelayedAudioFileWRandomPitch(trashSoundFile.audioName);

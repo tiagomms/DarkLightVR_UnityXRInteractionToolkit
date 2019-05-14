@@ -71,28 +71,28 @@ public class LightSpiritsController : MonoBehaviour {
 		{
 			LightSpirit newLightSpirit = new LightSpirit();
 			newLightSpirit.lsGameObject = obj;
-            // newLightSpirit.lsMatAlphaValue = obj.GetComponentInChildren<Renderer>().material.color.a;
 			newLightSpirit.lsAnimationManager = obj.GetComponent<LightSpiritAnimationManager>();
 			newLightSpirit.lsSelectionRay = obj.GetComponentInChildren<LightSpiritSelectionRay>();
 			instance.lightSpiritsDict.Add(obj.name, newLightSpirit);
 
-			DebugManager.Info("LightSpirit: '"+ obj.name + "'" + ", alpha value: " + newLightSpirit.lsAnimationManager.LsOriginalMatAlphaValue);
+			// DebugManager.Info("LightSpirit: '"+ obj.name + "'" + ", alpha value: " + newLightSpirit.lsAnimationManager.LsOriginalMatAlphaValue);
 		}
 	}
     private void OnEnable()
     {
-        EventManager.StartListening(Global.Level4_Events.TRASH_FALLING_START, HandleTrashFallingStart);
-        EventManager.StartListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
+        // EventManager.StartListening(Global.Level4_Events.TRASH_FALLING_START, SetRandomAnimationsOff);
+        // EventManager.StartListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
         // EventManager.StartListening(Global.Level4_Events.PLAYER_HIT_TRASH, HandlePlayerHitTrashParent);
-        EventManager.StartListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
+        // EventManager.StartListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
     }
     private void OnDisable()
     {
-        EventManager.StopListening(Global.Level4_Events.TRASH_FALLING_START, HandleTrashFallingStart);
-        EventManager.StopListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
+        // EventManager.StopListening(Global.Level4_Events.TRASH_FALLING_START, SetRandomAnimationsOff);
+        // EventManager.StopListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
         // EventManager.StopListening(Global.Level4_Events.PLAYER_HIT_TRASH, HandlePlayerHitTrashParent);
-        EventManager.StopListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
+        // EventManager.StopListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
     }
+
     private void Start()
     {
         SetActionToAllLightSpirits((int)LSAnimations.IDLE);
@@ -129,31 +129,17 @@ public class LightSpiritsController : MonoBehaviour {
 		}
 	}
 
-    private void RaiseLightSpiritsArms()
+    public void RaiseLightSpiritsArms()
     {
         SetActionToAllLightSpirits((int)LSAnimations.PREPARE_LIGHT_RAY, true);
     }
 
-    private void HandleTrashFallingStart()
+    public void SetRandomAnimationsOff()
     {
 		instance.isRandomAnimationsOn = false;
     }
 
-    private void HandleTrashFallingDisappearance()
-    {
-        // stop rays
-        DisableAllLSRays();
-
-        // lower arms
-        SetActionToAllLightSpirits((int)LSAnimations.UNLOAD_LIGHT_RAY);
-
-        // fading light spirits
-        FadeOutAllLightSpirits();
-
-        // pop up in next location
-    }
-
-    private void FadeOutAllLightSpirits()
+    public void FadeOutAllLightSpirits()
     {
         foreach (KeyValuePair<string, LightSpirit> item in instance.LightSpiritsDict)
         {
@@ -161,9 +147,7 @@ public class LightSpiritsController : MonoBehaviour {
         }
     }
 
-
-
-    private void DisableAllLSRays()
+    public void DisableAllLSRays()
     {
         foreach (KeyValuePair<string, LightSpirit> item in instance.LightSpiritsDict)
         {

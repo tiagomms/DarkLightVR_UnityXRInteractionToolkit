@@ -34,6 +34,8 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
     private int nbrNormalOrInactiveObjects = 0;
     private float beforeFadingRimPower = 3.0f;
     private float minObjectFadingAlpha = 0f;
+
+    private bool hasMiracleOccurred = false;
     public GameObject bogusGameObject; // to change its color, but its not viewable from the game's perspective
 
     private void Awake()
@@ -181,8 +183,7 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
         LeanTween.color(instance.bogusGameObject, instance.animationEndingColor, instance.changingColorAnimationDuration)
             .setDelay(5f)
             .setEase(LeanTweenType.easeInQuad)
-            .setOnUpdateColor((System.Action<Color>)TrashMaterialsColorUpdate)
-            .setOnComplete(TrashMaterialsColorUpdateCompleted);
+            .setOnUpdateColor((System.Action<Color>)TrashMaterialsColorUpdate);
     }
 
     private void TrashMaterialsColorUpdate(Color colorUpdate)
@@ -245,10 +246,9 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
     private void FadingMaterialsAnimationComplete()
     {
         instance.fallingTrashParent.SetActive(false);
-        EventManager.TriggerEvent(Global.Level4_Events.AFTER_MIRACLE_OCCURED);
-    }
-    private void TrashMaterialsColorUpdateCompleted()
-    {
-        throw new NotImplementedException();
+        if (!instance.hasMiracleOccurred) {
+            hasMiracleOccurred = true;
+            EventManager.TriggerEvent(Global.Level4_Events.AFTER_MIRACLE_OCCURED);
+        }
     }
 }

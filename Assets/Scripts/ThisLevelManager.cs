@@ -20,7 +20,18 @@ public class ThisLevelManager : MonoBehaviour
 
         SetLevelControls();
         SetLevelScripts();
+        SetLevelGravity();
     }
+
+    private void SetLevelGravity()
+    {
+        if (Global.currentLevel == Global.ThisLevelNbr.L2B) {
+            Physics.gravity = new Vector3(0f, -0.18f, 0f);
+        } else {
+            Physics.gravity = new Vector3(0f, -9.81f, 0f);
+        }
+    }
+
     private void SetLevelControls()
     {
         if (!cheatMode) {
@@ -33,20 +44,6 @@ public class ThisLevelManager : MonoBehaviour
                 Global.Shared_Controllers.SELECTION_RAY = false;
                 Global.Shared_Controllers.HINTMENU = false;
             }
-            else if (Global.currentLevel == Global.ThisLevelNbr.L3 || Global.currentLevel == Global.ThisLevelNbr.L5)
-            {
-                Global.Shared_Controllers.TELEPORT = false;
-                Global.Shared_Controllers.VOICECOMMAND = true;
-                Global.Shared_Controllers.SELECTION_RAY = false;
-                Global.Shared_Controllers.HINTMENU = true;
-            }
-            else if (Global.currentLevel == Global.ThisLevelNbr.L4 || Global.currentLevel == Global.ThisLevelNbr.L2B)
-            {
-                Global.Shared_Controllers.TELEPORT = false;
-                Global.Shared_Controllers.VOICECOMMAND = false;
-                Global.Shared_Controllers.SELECTION_RAY = false;
-                Global.Shared_Controllers.HINTMENU = true;
-            }
             else if (Global.currentLevel == Global.ThisLevelNbr.L2A)
             {
                 Global.Shared_Controllers.TELEPORT = true;
@@ -54,11 +51,18 @@ public class ThisLevelManager : MonoBehaviour
                 Global.Shared_Controllers.SELECTION_RAY = false;
                 Global.Shared_Controllers.HINTMENU = true;
             }
-            else
-            { // 6
+            else if (Global.currentLevel == Global.ThisLevelNbr.L6)
+            {
                 Global.Shared_Controllers.TELEPORT = true;
                 Global.Shared_Controllers.VOICECOMMAND = true;
                 Global.Shared_Controllers.SELECTION_RAY = true;
+                Global.Shared_Controllers.HINTMENU = true;
+            }
+            else // 2B, 3, 4, 5
+            {
+                Global.Shared_Controllers.TELEPORT = false;
+                Global.Shared_Controllers.VOICECOMMAND = false;
+                Global.Shared_Controllers.SELECTION_RAY = false;
                 Global.Shared_Controllers.HINTMENU = true;
             }
         } 
