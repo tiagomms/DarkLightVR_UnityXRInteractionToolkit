@@ -157,11 +157,19 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
 
     private void SetFallingTrashAnimations()
     {
-        SwapTrashMaterials(TrashGOMode.SELECTED);
+        // to avoid overload on a single frame
+        StartCoroutine(SetFallingTrashAnimations_Coroutine());
+    }
+
+    private IEnumerator SetFallingTrashAnimations_Coroutine()
+    {
+        yield return new WaitForEndOfFrame();
 
         SetSelectedMaterialsAnimation();
-        
         SetColorTransitionAnimation();
+        
+        yield return new WaitForEndOfFrame();
+        SwapTrashMaterials(TrashGOMode.SELECTED);
     }
 
     /*
