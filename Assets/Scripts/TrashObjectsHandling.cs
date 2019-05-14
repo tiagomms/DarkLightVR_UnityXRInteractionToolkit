@@ -105,6 +105,11 @@ public class TrashObjectsHandling : MonoBehaviour {
     private void OnDisable()
     {
         EventManager.StopListening(Global.Shared_Events.GO_AWAY_INPUT, TriggerFading);
+
+        // reset animations to previous values
+        SelectedMaterialsAnimationUpdate(1f);
+        FadingMaterialsAnimationUpdate(1f);
+        AlmostGoneMaterialsAnimationUpdate(1f);
     }
 
     private void Start()
