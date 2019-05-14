@@ -22,13 +22,12 @@ public class Level4AnimationsManager : MonoBehaviour {
     public float timeBetweenShootingRays = 3f;
     public Transform lSRayEndPosition;
 
-    public TrashObjectsHandling trashObjectsHandling;
     public SelectionLightBeamScript becomingLightBeam;
-
-    // public GameObject   narrator;
-    // public Transform    narratorSpawnPointAfterMiracle;
+    public Hand rightHand;
 
     private int stopIndex = 0;
+    private bool isSelectionRayTime = false;
+    private bool isGoAwayTime = false;
 
     private void OnEnable()
     {
@@ -144,15 +143,18 @@ public class Level4AnimationsManager : MonoBehaviour {
         lsDict["Angel Gold"].lsSelectionRay.TriggerRay(lSRayEndPosition);
 
         yield return new WaitForSecondsRealtime(timeBetweenShootingRays);
-        // hide hint
-        ControllerHintsManager.instance.HideSpecificButtonHint(Global.Shared_Hints.TUT_SELECTIONRAY);
+        // hide selection ray hint
+        ControllerHintsManager.instance.HideSpecificTextHint(Global.Shared_Hints.TUT_SELECTIONRAY);
+        isSelectionRayTime = false;
 
-        // show go away hint
+        // enable and show go away hint
         Global.Shared_Controllers.VOICECOMMAND = true;
         EventManager.TriggerEvent(Global.Shared_Events.SET_VOICECOMMAND);
 
         yield return new WaitForSecondsRealtime(timeBetweenShootingRays);
+        
         ControllerHintsManager.instance.ShowSpecificButtonHint(Global.Shared_Hints.TUT_GOAWAY);
+        isGoAwayTime = true;
     }
 
     private void HandleLightSpiritsStop()
@@ -181,24 +183,26 @@ public class Level4AnimationsManager : MonoBehaviour {
     private IEnumerator ShowSelectionRayButtonHint()
     {
         yield return new WaitForEndOfFrame();
-        ControllerHintsManager.instance.ShowSpecificButtonHint(Global.Shared_Hints.TUT_SELECTIONRAY);
+        ControllerHintsManager.instance.ShowSpecificTextHint(Global.Shared_Hints.TUT_SELECTIONRAY, "Go for it :)");
+        isSelectionRayTime = true;
     }
 
 
     private void HideGoAwayHint()
     {
         ControllerHintsManager.instance.HideSpecificButtonHint(Global.Shared_Hints.TUT_GOAWAY);
-    }
-
-    private void HandleLightSpiritTransition()
-    {
-
-        // throw new NotImplementedException();
+        isGoAwayTime = false;
     }
 
     private void Awake()
 	{
         _instance = this;
         instance.stopIndex = 0;
+    }
+
+    private void Update() {
+        if (isSelectionRayTime) {
+            rightHand.TriggerHapticPulse(250);
+        }
     }
 }
