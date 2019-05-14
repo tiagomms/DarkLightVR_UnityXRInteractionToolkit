@@ -108,6 +108,10 @@ public class TrashObjectsHandling : MonoBehaviour {
 
         // reset animations to previous values
         SelectedMaterialsAnimationUpdate(1f);
+
+        // before fading animation, get the rim power of all objects
+        instance.beforeFadingRimPower = instance.selectedMaterials[0].GetFloat("_RimPower");
+
         FadingMaterialsAnimationUpdate(1f);
         AlmostGoneMaterialsAnimationUpdate(1f);
     }
@@ -189,21 +193,21 @@ public class TrashObjectsHandling : MonoBehaviour {
     }
     private void AlmostGoneMaterialsAnimationUpdate(float value)
     {
-        foreach(Material fMat in instance.almostGoneMaterials) {
-            Color tintColor = fMat.GetColor("_ColorTint");
-            Color rimColor = fMat.GetColor("_RimColor");
-            Color outlineColor = fMat.GetColor("_OutlineColor");
+        foreach(Material agMat in instance.almostGoneMaterials) {
+            Color tintColor = agMat.GetColor("_ColorTint");
+            Color rimColor = agMat.GetColor("_RimColor");
+            Color outlineColor = agMat.GetColor("_OutlineColor");
 
             tintColor.a = value;
             outlineColor.a = value;
             rimColor.a = value;
 
-            fMat.SetColor("_ColorTint", tintColor);
-            fMat.SetColor("_RimColor", rimColor);
-            fMat.SetColor("_OutlineColor", outlineColor);
+            agMat.SetColor("_ColorTint", tintColor);
+            agMat.SetColor("_RimColor", rimColor);
+            agMat.SetColor("_OutlineColor", outlineColor);
 
             // rim power based on before fading value;
-            fMat.SetFloat("_RimPower", instance.beforeFadingRimPower);
+            agMat.SetFloat("_RimPower", instance.beforeFadingRimPower);
         }
     }
 

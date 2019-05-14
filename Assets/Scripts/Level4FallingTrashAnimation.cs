@@ -112,6 +112,11 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
         EventManager.StopListening(Global.Shared_Events.GO_AWAY_INPUT, TriggerFadingAnimation);
 
         TrashMaterialsColorUpdate(instance.animationStartingColor);
+        
+        // rim power
+        SelectedMaterialsAnimationUpdate(1.0f);
+        // alpha
+        FadingMaterialsAnimationUpdate(1.0f);
     }
 
 
