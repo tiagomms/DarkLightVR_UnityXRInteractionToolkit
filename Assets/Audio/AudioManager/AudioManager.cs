@@ -73,21 +73,24 @@ public class AudioManager : MonoBehaviour
             s.audioName = s.audioClip.name;
         }
 
-        s.source = s.gameObject.AddComponent<AudioSource>();
-        s.source.clip = s.audioClip;
-        s.source.priority = s.priority;
-        s.source.volume = s.volume;
-        s.source.spatialBlend = s.spatialBlend;
-        s.source.rolloffMode = s.volumeRolloff;
-        s.source.minDistance = s.minDistance;
-        s.source.maxDistance = s.maxDistance;
-        s.source.playOnAwake = s.playOnAwake;
-        s.source.loop = s.isLooping;
+        if (!s.hasBeenCreatedBefore) {
+            s.source = s.gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.audioClip;
+            s.source.priority = s.priority;
+            s.source.volume = s.volume;
+            s.source.spatialBlend = s.spatialBlend;
+            s.source.rolloffMode = s.volumeRolloff;
+            s.source.minDistance = s.minDistance;
+            s.source.maxDistance = s.maxDistance;
+            s.source.playOnAwake = s.playOnAwake;
+            s.source.loop = s.isLooping;
+        }
         if (s.playOnAwake)
         {
             s.source.Play();
         }
 
+        s.hasBeenCreatedBefore = true;
         audioFilesDict.Add(s.audioName, s);
     } 
     #region METHODS
@@ -109,7 +112,7 @@ public class AudioManager : MonoBehaviour
             AudioFile s = AudioManager.instance.audioFilesDict[name];
             s.source.PlayDelayed(delay);
         } catch (KeyNotFoundException exception) {
-            DebugManager.Error("Sound name " + name + " - not found!");
+            Debug.LogError("AUDIOMANAGER: Sound name " + name + " - not found!");
         } catch (Exception e) {
             Debug.LogError(e);
         }

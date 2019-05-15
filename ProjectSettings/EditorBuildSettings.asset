@@ -26,3 +26,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/Levels/Level6/Level6 - The End.unity
     guid: 92b1d4285da21d841a237eb40694f0b2
+  - enabled: 1
+    path: Assets/scenes/Levels/Level7/Level2A_EASTER - Noise.unity
+    guid: 36fca91e62a5fa64db581594636648dd
+  - enabled: 1
+    path: Assets/scenes/Levels/Level7/Level2B_EASTER - Rock Bottom.unity
+    guid: 47c1086eec0f5c545bfe6328fed95afb
+  - enabled: 1
+    path: Assets/scenes/Levels/Level8/Level3_EASTER - Hope.unity
+    guid: 19aea09b4f41192408ee0b200a27a66e
+  - enabled: 1
+    path: Assets/scenes/Levels/Level9/Level4_EASTER - The Path Towards.unity
+    guid: 8d4cf6310e9136f419f1989d0887aee2
+  - enabled: 1
+    path: Assets/scenes/Levels/Level10/Level5_EASTER - Light.unity
+    guid: 827d305523e7cdb4aa5606b498b5fcdf

@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallAndStopChildRigidBodies : MonoBehaviour {
+public class FallAndStopChildRigidBodies : MonoBehaviour
+{
 
-	public float 		timeUntilStoppage = 3.0f;
-	private Rigidbody[] childRBs;
+    public float timeUntilStoppage = 3.0f;
+    private Rigidbody[] childRBs;
 
-	private void Awake()
-	{
-		childRBs = gameObject.GetComponentsInChildren<Rigidbody>();
-		
-		StartCoroutine(StopChildRBObjects(0f));
-	}
+    private void Awake()
+    {
+        string goName = gameObject.name;
+        childRBs = gameObject.GetComponentsInChildren<Rigidbody>();
+
+        StartCoroutine(StopChildRBObjects(0f));
+    }
 
     private IEnumerator StopChildRBObjects(float delay)
     {
@@ -21,12 +23,21 @@ public class FallAndStopChildRigidBodies : MonoBehaviour {
         foreach (Rigidbody rb in childRBs)
         {
             rb.isKinematic = true;
-			rb.useGravity = false;
+            rb.useGravity = false;
         }
     }
 
-    public void FallAndStopChildRigidbodiesAnimation() {
-		foreach (Rigidbody rb in childRBs) { rb.isKinematic = false; rb.useGravity = true; }
-		StartCoroutine(StopChildRBObjects(timeUntilStoppage));
-	}
+    public void FallAndStopChildRigidbodiesAnimation()
+    {
+        foreach (Rigidbody rb in childRBs) { rb.isKinematic = false; rb.useGravity = true; }
+        StartCoroutine(StopChildRBObjects(timeUntilStoppage));
+    }
+
+    internal void AddTrashObjectsToTrashObjectHandling()
+    {
+        foreach (Rigidbody rb in childRBs)
+        {
+            TrashObjectsHandling.instance.AddTrashObjectsDictionaryEntry(rb.gameObject);
+        }
+    }
 }

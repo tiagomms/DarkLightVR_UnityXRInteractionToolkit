@@ -92,6 +92,14 @@ public class LightSpiritAnimationManager : MonoBehaviour {
         FadeToAlphaLightSpirit(LsOriginalMatAlphaValue);
     }
 
+    public void ForceLightSpiritAlpha(float alphaTo) {
+        Renderer rend = gameObject.GetComponent<Renderer>();
+
+        Color color = rend.material.color;
+        color.a = alphaTo;
+        rend.material.color = color;
+    }
+
     public IEnumerator StartRandomAnimationCycle() {
         while (IsRandomAnimOn) {
             SetRandomAnimation(true);

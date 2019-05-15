@@ -220,6 +220,8 @@ GameObject:
   - component: {fileID: 121119691}
   - component: {fileID: 121119695}
   - component: {fileID: 121119694}
+  - component: {fileID: 121119697}
+  - component: {fileID: 121119696}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: AudioFile
@@ -249,6 +251,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &121119692
@@ -295,7 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioName: music3
   audioClip: {fileID: 8300000, guid: 2d209dc5fd83fa04489f75e9f910c54b, type: 3}
-  volume: 0.5
+  volume: 0.7
   spatialBlend: 0
   volumeRolloff: 1
   minDistance: 3
@@ -304,6 +307,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &121119695
@@ -319,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioName: music2
   audioClip: {fileID: 8300000, guid: 1d85ac11790ed424489ffc86a9f7396e, type: 3}
-  volume: 0.5
+  volume: 0.7
   spatialBlend: 0
   volumeRolloff: 1
   minDistance: 3
@@ -328,6 +332,57 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
+  isLooping: 0
+  playOnAwake: 0
+--- !u!114 &121119696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 121119690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ded318e5dca9c488792fa620af4fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioName: music5
+  audioClip: {fileID: 8300000, guid: 263128385c2c2504481ad79913ae1b7a, type: 3}
+  volume: 1
+  spatialBlend: 0
+  volumeRolloff: 1
+  minDistance: 3
+  maxDistance: 50
+  lowPitchRange: 0.75
+  highPitchRange: 1.5
+  priority: 128
+  source: {fileID: 0}
+  hasBeenCreatedBefore: 0
+  isLooping: 0
+  playOnAwake: 0
+--- !u!114 &121119697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 121119690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ded318e5dca9c488792fa620af4fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioName: music4
+  audioClip: {fileID: 8300000, guid: ce4cc6efed8cb2f48bb845349a9ef059, type: 3}
+  volume: 1
+  spatialBlend: 0
+  volumeRolloff: 1
+  minDistance: 3
+  maxDistance: 50
+  lowPitchRange: 0.75
+  highPitchRange: 1.5
+  priority: 128
+  source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!1 &132619230
@@ -686,6 +741,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &804860968
@@ -710,6 +766,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &804860969
@@ -734,6 +791,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &804860970

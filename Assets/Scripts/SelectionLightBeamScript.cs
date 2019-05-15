@@ -24,7 +24,7 @@ public class SelectionLightBeamScript : MonoBehaviour
 
     // variables to hold data
     public float maxLRWidth = 2.0f;
-    public float maxLRLength = 10.0f;
+    private float maxLRLength = 10.0f;
     public float maxParticleSurBeamLifetime = 5.0f;
     public float minParticleSurBeamLifetime = 1.0f;
     public float maxSpeedParticle = 3.0f;
@@ -101,6 +101,9 @@ public class SelectionLightBeamScript : MonoBehaviour
         // 8 - trash;
         // 13 - Ignore everything except player;
         layersToIgnoreWhenRaycastingDistance = ~( (1 << 2) | (1 << 8) | (1 << 13) );
+        
+        // defined in This Level Manager
+        maxLRLength = Global.Shared_Controllers.SELECTION_RAY_MAX_DISTANCE;
         disableSelectionRay();
     }
 
@@ -155,8 +158,8 @@ public class SelectionLightBeamScript : MonoBehaviour
         }
 
         if (cancelSelectionAction.GetStateDown(thisInputSource) && trashObjectHandling.anyObjectSelected()) {
-            // since there is no hits, it will cancel all selected objects back to normal            
-            trashObjectHandling.TriggerSelection();
+            // since there is no hits, it will cancel all selected objects back to normal
+            trashObjectHandling.TriggerSelection(true); // FORCE CANCEL            
             // haptics
             rightHand.TriggerHapticPulse(0.5f, 10.0f, 15.0f);
             
@@ -168,16 +171,16 @@ public class SelectionLightBeamScript : MonoBehaviour
     private void HitOtherObjects(Ray ray, float maxDistance)
     {
         // different rays regarding different situations
-        if (!otherObjectsNotHitBefore && Global.currentLevel == Global.ThisLevelNbr.L4) {
-            
-            // level 4, trigger animations when player hits falling trash
-            // ignore everything except player
-            if (Physics.SphereCast(ray, rayRadius, maxDistance, (1 << 13))) {
-                DebugManager.Info(Global.Level4_Events.PLAYER_HIT_TRASH);
-                EventManager.TriggerEvent(Global.Level4_Events.PLAYER_HIT_TRASH);
-                otherObjectsNotHitBefore = true;
+        if (!otherObjectsNotHitBefore) {
+            if (Global.currentLevel == Global.ThisLevelNbr.L4 || Global.currentLevel == Global.ThisLevelNbr.L4_EASTER) {
+                // level 4, trigger animations when player hits falling trash
+                // ignore everything except player
+                if (Physics.SphereCast(ray, rayRadius, maxDistance, (1 << 13))) {
+                    DebugManager.Info(Global.Level4_Events.PLAYER_HIT_TRASH);
+                    EventManager.TriggerEvent(Global.Level4_Events.PLAYER_HIT_TRASH);
+                    otherObjectsNotHitBefore = true;
+                }
             }
-
         }
     }
 

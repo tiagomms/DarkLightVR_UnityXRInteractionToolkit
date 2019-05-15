@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TriggerResetThrowableBallsScript : MonoBehaviour {
 
+	string triggerName = "ThrowableBall";
 	private void OnTriggerEnter(Collider other) {
 		GameObject obj = other.gameObject;
-		if (obj.tag == "ThrowableBall") {
+		if (obj.name.Contains(triggerName)) {
 			EventManager.TriggerEvent(Global.Level2_Events.RESET_BALL);
 		}
 	}

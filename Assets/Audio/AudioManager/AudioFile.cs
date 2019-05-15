@@ -30,6 +30,9 @@ public class AudioFile : MonoBehaviour
     [HideInInspector]
     public AudioSource source;
 
+    [HideInInspector]
+    public bool hasBeenCreatedBefore = false;
+
     public bool isLooping = false;
     public bool playOnAwake = false;
 

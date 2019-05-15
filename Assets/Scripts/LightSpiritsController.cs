@@ -21,7 +21,7 @@ public class LightSpiritsController : MonoBehaviour {
     }
 
 	private Dictionary<string, LightSpirit> lightSpiritsDict = new Dictionary<string, LightSpirit>();
-	private bool isRandomAnimationsOn = true;
+	private bool isRandomAnimationsOn = false;
 	private bool areAllStopped = true;
 
     public bool AreAllStopped
@@ -78,34 +78,17 @@ public class LightSpiritsController : MonoBehaviour {
 			// DebugManager.Info("LightSpirit: '"+ obj.name + "'" + ", alpha value: " + newLightSpirit.lsAnimationManager.LsOriginalMatAlphaValue);
 		}
 	}
-    private void OnEnable()
-    {
-        // EventManager.StartListening(Global.Level4_Events.TRASH_FALLING_START, SetRandomAnimationsOff);
-        // EventManager.StartListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
-        // EventManager.StartListening(Global.Level4_Events.PLAYER_HIT_TRASH, HandlePlayerHitTrashParent);
-        // EventManager.StartListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
-    }
-    private void OnDisable()
-    {
-        // EventManager.StopListening(Global.Level4_Events.TRASH_FALLING_START, SetRandomAnimationsOff);
-        // EventManager.StopListening(Global.Level4_Events.LIGHT_SPIRITS_RAISE_ARM, RaiseLightSpiritsArms);
-        // EventManager.StopListening(Global.Level4_Events.PLAYER_HIT_TRASH, HandlePlayerHitTrashParent);
-        // EventManager.StopListening(Global.Level4_Events.AFTER_MIRACLE_OCCURED, HandleTrashFallingDisappearance);
-    }
 
     private void Start()
     {
-        SetActionToAllLightSpirits((int)LSAnimations.IDLE);
-
+        SetActionToAllLightSpirits((int)LSAnimations.STILL);
         // on all other levels, the white angel will do the talking
-        if (Global.currentLevel != Global.ThisLevelNbr.L6) {
+        if (Global.currentLevel != Global.ThisLevelNbr.L6 && Global.currentLevel != Global.ThisLevelNbr.L4_EASTER) {
+            isRandomAnimationsOn = true;
             SetActionToLightSpirit("Angel White", (int)LSAnimations.TALKING);
             SetLockedAnimToLightSpirit("Angel White", true);
             StartCoroutine(TriggerRandomLightSpiritAnimations());
-        } else {
-            SetActionToAllLightSpirits((int)LSAnimations.FLYING);
         }
-
     }	
 
 	public void SetActionToAllLightSpirits(int actionValue, bool forceAnimationToAll = false) {
@@ -144,6 +127,13 @@ public class LightSpiritsController : MonoBehaviour {
         foreach (KeyValuePair<string, LightSpirit> item in instance.LightSpiritsDict)
         {
             item.Value.lsAnimationManager.FadeToAlphaLightSpirit();
+        }
+    }
+    public void ForceAllLightSpiritsAlphaTo(float alphaTo)
+    {
+        foreach (KeyValuePair<string, LightSpirit> item in instance.LightSpiritsDict)
+        {
+            item.Value.lsAnimationManager.ForceLightSpiritAlpha(alphaTo);
         }
     }
 

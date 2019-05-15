@@ -8,7 +8,7 @@ public static class Global
     [Flags]
     public enum ThisLevelNbr
     {
-        L1 = 0, L2A = 1, L2B = 2, L3 = 3, L4 = 4, L5 = 5, L6 = 6
+        L1 = 0, L2A = 1, L2B = 2, L3 = 3, L4 = 4, L5 = 5, L6 = 6, L2A_EASTER = 7, L2B_EASTER = 8, L3_EASTER = 9, L4_EASTER = 10, L5_EASTER = 11
     }
 
     public static ThisLevelNbr currentLevel;
@@ -41,9 +41,13 @@ public static class Global
         static public bool TELEPORT = true;
         static public bool VOICECOMMAND = true;
         static public bool SELECTION_RAY = true;
+        static public float SELECTION_RAY_MAX_DISTANCE = 10f;
         static public bool GRAB = true;
         static public bool HINTMENU = true;
         static public bool MEDITATION_CIRCLE_READY = false;
+
+        static public bool ENDED_GAME = false;
+        public static bool FOUND_EASTER_EGG = false;
     }
 
     public enum ConsciousnessLevel {
