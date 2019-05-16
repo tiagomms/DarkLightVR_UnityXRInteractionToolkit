@@ -10,9 +10,21 @@ using System;
 
 public class VoiceCommandManager : MonoBehaviour
 {
+    private static VoiceCommandManager _instance;
+    public static VoiceCommandManager instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<VoiceCommandManager>();
+            }
+
+            return _instance;
+        }
+    }
 
     public SteamVR_Action_Boolean voiceInputAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("VoiceInput");
-    public TrashObjectsHandling trashObjectsHandling;
     public ConfidenceLevel wordConfidenceLevel = ConfidenceLevel.Low;
 
     // TODO: with events
@@ -25,7 +37,6 @@ public class VoiceCommandManager : MonoBehaviour
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
 
-    private bool isInMeditationCircle = false;
     private bool isActivated = false;
     private bool isGoAwayHandled = false;
     private bool isIAmReadyHandled = false;
@@ -33,106 +44,83 @@ public class VoiceCommandManager : MonoBehaviour
 
     private void Awake()
     {
-        voiceInputAudioSource = gameObject.GetComponent<AudioSource>();
+        _instance = this;
+        instance.voiceInputAudioSource = gameObject.GetComponent<AudioSource>();
     }
     private void Start()
     {
         // go away iterations
-        keywords.Add("go", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("go away", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("goaway", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("goway", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("go way", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("way", () => { HandleGoAwayVoiceInput(); });
-        keywords.Add("away", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("go", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("go away", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("goaway", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("goway", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("go way", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("way", () => { HandleGoAwayVoiceInput(); });
+        instance.keywords.Add("away", () => { HandleGoAwayVoiceInput(); });
 
         // i am ready iterations
-        keywords.Add("am", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ham", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("yam", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i am", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("eyam ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("eyeam ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("iyam redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("iyam ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i yam ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("yam redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("yam ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("teady", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("teddy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("seaby", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("steady", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("seady", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("seby", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("reby", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("reaby", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("raby", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("rady", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ready", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I am ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i am ready", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I m ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i m ready", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("im ready", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I ham ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i ham ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ham ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("m ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("em ready", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("am ready", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I'm raedy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im raedy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i'm raedy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("im raedy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I'm redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i'm redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("im redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I am redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i am redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I m redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i m redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I ham redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i ham redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ham redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("m redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("em redy", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("am redy", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I'm redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i'm redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("im redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I am redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i am redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I m redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i m redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I ham redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i ham redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ham redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("m redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("em redi", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("am redi", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I'm rede", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i'm rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("im rede", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I am rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i am rede", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I m rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i m rede", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("Im rede", () => { HandleImReadyVoiceInput(); });
-        // keywords.Add("I ham rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("i ham rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("ham rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("m rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("em rede", () => { HandleImReadyVoiceInput(); });
-        keywords.Add("am rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("am", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ham", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("yam", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i am", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("eyam ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("eyeam ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("iyam redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("iyam ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i yam ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("yam redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("yam ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("teady", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("teddy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("seaby", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("steady", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("seady", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("seby", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("reby", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("reaby", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("raby", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("rady", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i am ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i m ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("im ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i ham ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ham ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("m ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("em ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("am ready", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i'm raedy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("im raedy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i'm redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("im redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i am redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i m redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i ham redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ham redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("m redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("em redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("am redy", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i'm redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("im redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i am redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i m redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i ham redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ham redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("m redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("em redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("am redi", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i'm rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("im rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i am rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i m rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("i ham rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("ham rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("m rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("em rede", () => { HandleImReadyVoiceInput(); });
+        instance.keywords.Add("am rede", () => { HandleImReadyVoiceInput(); });
 
-        keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray(), wordConfidenceLevel);
+        instance.keywordRecognizer = new KeywordRecognizer(instance.keywords.Keys.ToArray(), instance.wordConfidenceLevel);
     }
 
     private void OnEnable()
@@ -146,9 +134,9 @@ public class VoiceCommandManager : MonoBehaviour
 
     private void KeywordRecognizerOnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        DebugManager.Info("Words Recognized: '" + args.text + "' - isRunning: " + keywordRecognizer.IsRunning);
+        DebugManager.Info("Words Recognized: '" + args.text + "' - isRunning: " + instance.keywordRecognizer.IsRunning);
         System.Action keywordAction;
-        if (keywords.TryGetValue(args.text, out keywordAction) && keywordRecognizer.IsRunning)
+        if (instance.keywords.TryGetValue(args.text, out keywordAction) && instance.keywordRecognizer.IsRunning)
         {
             keywordAction.Invoke();
         }
@@ -157,9 +145,9 @@ public class VoiceCommandManager : MonoBehaviour
 
     private void HandleImReadyVoiceInput()
     {
-        if (IsPlayerOnMeditationCircleScript.IsPlayerSittingOnMeditationCircle() && !isIAmReadyHandled)
+        if (IsPlayerOnMeditationCircleScript.IsPlayerSittingOnMeditationCircle() && !instance.isIAmReadyHandled)
         {
-            isIAmReadyHandled = true;
+            instance.isIAmReadyHandled = true;
             StartCoroutine(SuccessKeywordRecognizer());
             StartCoroutine(TriggerChangeScene());
             
@@ -174,15 +162,15 @@ public class VoiceCommandManager : MonoBehaviour
         EventManager.TriggerEvent(Global.Shared_Events.CHANGE_SCENE);
     }
 
-    private void GoAwaySuccessVoiceInput()
+    public void GoAwaySuccessVoiceInput()
     {
         StartCoroutine(SuccessKeywordRecognizer());
     }
 
     private void HandleGoAwayVoiceInput()
     {
-        if (!isGoAwayHandled) {
-            isGoAwayHandled = true;
+        if (!instance.isGoAwayHandled) {
+            instance.isGoAwayHandled = true;
             EventManager.TriggerEvent(Global.Shared_Events.GO_AWAY_INPUT);
         }
     }
@@ -190,56 +178,58 @@ public class VoiceCommandManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isActivated && voiceInputAction.GetState(SteamVR_Input_Sources.RightHand))
+        if (!instance.isActivated && instance.voiceInputAction.GetState(SteamVR_Input_Sources.RightHand))
         {
             // TODO: make voice input ready sound
             StartCoroutine(StartKeywordRecognizer());
-            DebugManager.Info("ON - keywordRecognizer");
+            DebugManager.Info("ON - instance.keywordRecognizer");
         }
-        if (voiceInputAction.GetStateUp(SteamVR_Input_Sources.RightHand))
+        if (instance.voiceInputAction.GetStateUp(SteamVR_Input_Sources.RightHand))
         {
             // TODO: make voice input off
             StartCoroutine(StopKeywordRecognizer());
-            DebugManager.Info("OFF - keywordRecognizer");
+            DebugManager.Info("OFF - instance.keywordRecognizer");
         }
     }
     private IEnumerator StartKeywordRecognizer()
     {
-        isActivated = true;
-        VoiceManagerPlayClip(turnOnClip);
+        instance.isActivated = true;
+        VoiceManagerPlayClip(instance.turnOnClip);
         yield return new WaitForSecondsRealtime(.5f);
-        keywordRecognizer.OnPhraseRecognized += KeywordRecognizerOnPhraseRecognized;
-        keywordRecognizer.Start();
+        instance.keywordRecognizer.OnPhraseRecognized += KeywordRecognizerOnPhraseRecognized;
+        instance.keywordRecognizer.Start();
     }
 
     private IEnumerator StopKeywordRecognizer()
     {
-        // if successClip is playing, don't play turn off clip 
-        if (!(voiceInputAudioSource.isPlaying && voiceInputAudioSource.clip.name == successClip.name)) {
-            VoiceManagerPlayClip(turnOffClip);
+        // if instance.successClip is playing, don't play turn off clip 
+        if (!(instance.voiceInputAudioSource.isPlaying && instance.voiceInputAudioSource.clip.name == instance.successClip.name)) {
+            VoiceManagerPlayClip(instance.turnOffClip);
         }
         yield return new WaitForSecondsRealtime(.5f);
-        keywordRecognizer.OnPhraseRecognized -= KeywordRecognizerOnPhraseRecognized;
-        keywordRecognizer.Stop();
+        instance.keywordRecognizer.OnPhraseRecognized -= KeywordRecognizerOnPhraseRecognized;
+        instance.keywordRecognizer.Stop();
         yield return new WaitForSecondsRealtime(.3f);
-        isActivated = false;
+        instance.isIAmReadyHandled = false;
+        instance.isGoAwayHandled = false;
+        instance.isActivated = false;
     }
     private IEnumerator SuccessKeywordRecognizer()
     {
         yield return new WaitForSecondsRealtime(.3f);
-        VoiceManagerPlayClip(successClip);
-        isIAmReadyHandled = false;
-        isGoAwayHandled = false;
+        VoiceManagerPlayClip(instance.successClip);
+        instance.isIAmReadyHandled = false;
+        instance.isGoAwayHandled = false;
     }
 
     private void VoiceManagerPlayClip(AudioClip newClip)
     {
-        if (voiceInputAudioSource.isPlaying)
+        if (instance.voiceInputAudioSource.isPlaying)
         {
-            voiceInputAudioSource.Stop();
+            instance.voiceInputAudioSource.Stop();
         }
-        voiceInputAudioSource.clip = newClip;
-        voiceInputAudioSource.Play();
+        instance.voiceInputAudioSource.clip = newClip;
+        instance.voiceInputAudioSource.Play();
         DebugManager.Info("Now Playing: " + newClip.name);
     }
 
@@ -247,10 +237,10 @@ public class VoiceCommandManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (keywordRecognizer != null && keywordRecognizer.IsRunning)
+        if (instance.keywordRecognizer != null && instance.keywordRecognizer.IsRunning)
         {
-            keywordRecognizer.OnPhraseRecognized -= KeywordRecognizerOnPhraseRecognized;
-            keywordRecognizer.Stop();
+            instance.keywordRecognizer.OnPhraseRecognized -= KeywordRecognizerOnPhraseRecognized;
+            instance.keywordRecognizer.Stop();
         }
     }
 }

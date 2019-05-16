@@ -25,7 +25,7 @@ public class ThisLevelManager : MonoBehaviour
 
     private void SetLevelGravity()
     {
-        if (Global.currentLevel == Global.ThisLevelNbr.L2B) {
+        if (Global.currentLevel == Global.ThisLevelNbr.L2B || Global.currentLevel == Global.ThisLevelNbr.L2B_EASTER) {
             Physics.gravity = new Vector3(0f, -0.18f, 0f);
         } else {
             Physics.gravity = new Vector3(0f, -9.81f, 0f);
@@ -37,6 +37,7 @@ public class ThisLevelManager : MonoBehaviour
         if (!cheatMode) {
 
             Global.Shared_Controllers.MEDITATION_CIRCLE_READY = false;
+            Global.Shared_Controllers.ENDED_GAME = false;
             if (Global.currentLevel == Global.ThisLevelNbr.L1)
             {
                 Global.Shared_Controllers.TELEPORT = false;
@@ -51,12 +52,13 @@ public class ThisLevelManager : MonoBehaviour
                 Global.Shared_Controllers.SELECTION_RAY = false;
                 Global.Shared_Controllers.HINTMENU = true;
             }
-            else if (Global.currentLevel == Global.ThisLevelNbr.L6)
+            else if (Global.currentLevel >= Global.ThisLevelNbr.L6) // 6 onwards
             {
                 Global.Shared_Controllers.TELEPORT = true;
                 Global.Shared_Controllers.VOICECOMMAND = true;
                 Global.Shared_Controllers.SELECTION_RAY = true;
                 Global.Shared_Controllers.HINTMENU = true;
+                Global.Shared_Controllers.ENDED_GAME = true;
             }
             else // 2B, 3, 4, 5
             {
@@ -81,6 +83,7 @@ public class ThisLevelManager : MonoBehaviour
         {
             case Global.ThisLevelNbr.L1:
                 Global.ConsciousLevel = Global.ConsciousnessLevel.FULLY;
+                Global.Shared_Controllers.SELECTION_RAY_MAX_DISTANCE = 10;
                 break;
             case Global.ThisLevelNbr.L2A:
                 Global.ConsciousLevel = Global.ConsciousnessLevel.NOT;
@@ -93,14 +96,14 @@ public class ThisLevelManager : MonoBehaviour
                 break;
             case Global.ThisLevelNbr.L4:
                 Global.ConsciousLevel = Global.ConsciousnessLevel.BECOMING;
+                Global.Shared_Controllers.SELECTION_RAY_MAX_DISTANCE = 25;
                 break;
             case Global.ThisLevelNbr.L5:
                 Global.ConsciousLevel = Global.ConsciousnessLevel.BECOMING; // not needed
                 break;
-            case Global.ThisLevelNbr.L6:
+            default: // L6 onwards
                 Global.ConsciousLevel = Global.ConsciousnessLevel.FULLY;
-                break;
-            default:
+                Global.Shared_Controllers.SELECTION_RAY_MAX_DISTANCE = 50;
                 break;
         }
     }

@@ -22,7 +22,7 @@ public class LoadSceneSkybox : MonoBehaviour {
 
 	private void LoadThisSceneSkybox() {
 		int cLevel = (int)Global.currentLevel;
-		if (cLevel == 1 || cLevel == 2) { //2A, 2B
+		if (cLevel == 1 || cLevel == 2 || cLevel == 7 || cLevel == 8) { //2A, 2B, 2A_Easter, 2B_Easter
 			cam.clearFlags = CameraClearFlags.SolidColor;
 			cam.backgroundColor = solidBackgroundColor;
 		}

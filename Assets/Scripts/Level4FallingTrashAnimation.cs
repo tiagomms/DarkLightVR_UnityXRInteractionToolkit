@@ -104,6 +104,7 @@ public class Level4FallingTrashAnimation : MonoBehaviour {
         EventManager.StartListening(Global.Level4_Events.PLAYER_HIT_TRASH, SetFallingTrashAnimations);
         EventManager.StartListening(Global.Shared_Events.GO_AWAY_INPUT, TriggerFadingAnimation);
 
+        TrashMaterialsColorUpdate(instance.animationStartingColor);
     }
     private void OnDisable()
     {

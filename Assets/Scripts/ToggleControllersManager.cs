@@ -62,7 +62,7 @@ public class ToggleControllersManager : MonoBehaviour
 
     private IEnumerator SetTeleportEnable()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(.5f);
         instance.teleportScript.enabled = Global.Shared_Controllers.TELEPORT;
     }
 

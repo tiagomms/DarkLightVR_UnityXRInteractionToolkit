@@ -97,13 +97,13 @@ public class Level4AnimationsManager : MonoBehaviour {
 
 
 
-    private IEnumerator ForceTrashFallingStart()
-    {
-        // TODO: change timer
-        yield return new WaitForSecondsRealtime(12f);
-        DebugManager.Info(Global.Level4_Events.TRASH_FALLING_START);
-        EventManager.TriggerEvent(Global.Level4_Events.TRASH_FALLING_START);
-    }
+    // private IEnumerator ForceTrashFallingStart()
+    // {
+    //     // TODO: change timer
+    //     yield return new WaitForSecondsRealtime(12f);
+    //     DebugManager.Info(Global.Level4_Events.TRASH_FALLING_START);
+    //     EventManager.TriggerEvent(Global.Level4_Events.TRASH_FALLING_START);
+    // }
     // private IEnumerator ForcePlayerHitTrash()
     // {
     //     // TODO: change procedure

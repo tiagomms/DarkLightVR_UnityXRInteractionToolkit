@@ -25,14 +25,9 @@ public class RotateTowardsCliff : MonoBehaviour {
     }
     private void RotatePlayer()
     {
-		if (vrPlayerRig != null) {
-			if (Global.currentLevel == Global.ThisLevelNbr.L2A || Global.currentLevel == Global.ThisLevelNbr.L2B) {
-        		vrPlayerRig.transform.Rotate(Vector3.up, initialYRotation - transform.rotation.eulerAngles.y); //cliff is at 0 degrees
-        		// vrPlayerRig.transform.Rotate(Vector3.up, -180f - transform.rotation.eulerAngles.y); //cliff is at 0 degrees
-			}
-			// if (Global.currentLevel == Global.ThisLevelNbr.L2B) {
-        	// 	vrPlayerRig.transform.Rotate(Vector3.up, 0f - transform.rotation.eulerAngles.y); //cliff is at 0 degrees
-			// }
+		if (Global.currentLevel == Global.ThisLevelNbr.L2A || Global.currentLevel == Global.ThisLevelNbr.L2B || Global.currentLevel == Global.ThisLevelNbr.L5 
+			|| Global.currentLevel == Global.ThisLevelNbr.L2A_EASTER || Global.currentLevel == Global.ThisLevelNbr.L2B_EASTER || Global.currentLevel == Global.ThisLevelNbr.L5_EASTER) {
+			vrPlayerRig.transform.Rotate(Vector3.up, initialYRotation - transform.rotation.eulerAngles.y); //cliff is at 0 degrees
 		}
     }
 }

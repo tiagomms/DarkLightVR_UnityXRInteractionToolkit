@@ -82,7 +82,7 @@ public class AudioFilePlayer : MonoBehaviour {
         {
             delay += waitingPeriodBetweenFiles[i];
             AudioManager.PlayDelayedAudioFile(audioFiles[i].audioName, delay);
-            delay += audioFiles[i].audioClip.length;
+            delay += audioFiles[i].audioClip.length + 3.0f;
         }
         InvokeRepeating("IsAudioFilePlayerStopped", delay, stoppedRepeatRate);
     }

@@ -38,10 +38,11 @@ public class TrashObjectsHandling : MonoBehaviour {
     private void Awake()
     {
         _instance = this;
-        SetupTrashObjectsAndMaterials();
+        SetupTrashMaterials();
+        SetupTrashObjects();
     }
 
-    private void SetupTrashObjectsAndMaterials()
+    private void SetupTrashMaterials()
     {
         string animatedMaterialsPath = TRASH_MATERIALS_PATH + "CONSCIOUSNESS_LEVEL/" + Global.GetConsciousnessLevelString(Global.ConsciousLevel) + "/";
         // setup materials - load them from their respective folders
@@ -54,10 +55,22 @@ public class TrashObjectsHandling : MonoBehaviour {
             instance.minObjectFadingAlpha = instance.becomingConsciousFadingAlphaDecrease;
             instance.almostGoneMaterials = Resources.LoadAll<Material>(animatedMaterialsPath + "3_ALMOST_GONE/");
         }
+    }
 
+    public void SetupTrashObjects()
+    {
         GameObject[] trashObjects = GameObject.FindGameObjectsWithTag("objectsToClean");
         foreach (GameObject obj in trashObjects)
         {
+            AddTrashObjectsDictionaryEntry(obj);
+        }
+        instance.nbrNormalOrInactiveObjects = instance.trashGODict.Count;
+    }
+
+    public void AddTrashObjectsDictionaryEntry(GameObject obj)
+    {
+        if (!instance.trashGODict.ContainsKey(obj.name)) {
+
             TrashGODetails trashGODetails = new TrashGODetails();
             Renderer rend = obj.GetComponent<Renderer>();
             int[] matIndexes = new int[rend.sharedMaterials.Length]; // to Delete
@@ -66,12 +79,14 @@ public class TrashObjectsHandling : MonoBehaviour {
             trashGODetails.GOSelectedMats = new Material[rend.sharedMaterials.Length];
             trashGODetails.GOFadingMats = new Material[rend.sharedMaterials.Length];
             trashGODetails.GOAlmostGoneMats = new Material[rend.sharedMaterials.Length];
-            
+
             int curMatIndex = 0;
             int i = 0;
-            
-            while (curMatIndex < matIndexes.Length) {
-                if (rend.sharedMaterials[curMatIndex].name.Contains(instance.normalMaterials[i].name)) {
+
+            while (curMatIndex < matIndexes.Length)
+            {
+                if (rend.sharedMaterials[curMatIndex].name.Contains(instance.normalMaterials[i].name))
+                {
                     matIndexes[curMatIndex] = i;// to Delete
                     trashGODetails.GONormalMats[curMatIndex] = instance.normalMaterials[i];
                     trashGODetails.GOSelectedMats[curMatIndex] = instance.selectedMaterials[i];
@@ -87,15 +102,16 @@ public class TrashObjectsHandling : MonoBehaviour {
                 }
                 i++;
             }
-            
+
             trashGODetails.GORender = rend;
             trashGODetails.GObject = obj;
             trashGODetails.MaxGOScale = obj.transform.localScale * notConsciousMaxScale;
-            
+
             instance.trashGODict.Add(obj.name, trashGODetails);
         }
-        instance.nbrNormalOrInactiveObjects = instance.trashGODict.Count;
-        
+        else {
+            Debug.Log("TrashObjectsHandling - object already exists in Dict: '" + obj.name + "'");
+        }
     }
 
     private void OnEnable()
@@ -272,20 +288,30 @@ public class TrashObjectsHandling : MonoBehaviour {
 
     internal void HitObject(string name)
     {
-        instance.trashGODict[name].IsHit = true;
+        if (instance.trashGODict.ContainsKey(name)) {
+            instance.trashGODict[name].IsHit = true;
+        } else {
+            Debug.Log("TrashObjectsHandling - object DOES NOT EXIST in Dict: '" + name + "'");
+        }
     }
 
-    internal void TriggerSelection()
+    internal void TriggerSelection(bool forceCancel = false)
     {
         foreach(KeyValuePair<string, TrashGODetails> keyValuePair in instance.trashGODict) {
             TrashGODetails objDetails = keyValuePair.Value;
             
             // handle Hit
-            if (objDetails.IsHit) {
+            if (objDetails.IsHit && !forceCancel) {
                 if (objDetails.GOMode == TrashGOMode.NORMAL || objDetails.GOMode == TrashGOMode.ALMOST_GONE)
                 {
                     ChangeTrashObjectToSelected(objDetails);
                 }
+
+                // when super power is on, and no request for cancelling was made - object stays it
+                if (Global.Shared_Controllers.ENDED_GAME) {
+                    continue;
+                }
+
             } else {
                 if (objDetails.GOMode == TrashGOMode.SELECTED)
                 {
@@ -297,8 +323,10 @@ public class TrashObjectsHandling : MonoBehaviour {
                 }
             }
 
-            // reset booleans
+            // default behaviour - reset booleans
             objDetails.IsHit = false;
+
+
         }
     }
     internal void TriggerFading()

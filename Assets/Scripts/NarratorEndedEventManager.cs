@@ -16,7 +16,7 @@ public class NarratorEndedEventManager : MonoBehaviour {
 
     private void HandleNarratorEnded()
     {
-        if (Global.currentLevel == Global.ThisLevelNbr.L2B || Global.currentLevel == Global.ThisLevelNbr.L3) {
+        if (Global.currentLevel == Global.ThisLevelNbr.L2B || Global.currentLevel == Global.ThisLevelNbr.L2B_EASTER || Global.currentLevel == Global.ThisLevelNbr.L3) {
             StartCoroutine(TriggerShowMeditationCircle());
         }
         if (Global.currentLevel == Global.ThisLevelNbr.L2A)

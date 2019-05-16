@@ -53,12 +53,13 @@ public class NarratorAudioFilePlayer : AudioFilePlayer {
     public override bool PlayCurrentAudioFile(float delay = 0f)
     {
         if (base.PlayCurrentAudioFile(delay)) {
-            float lowerVolumeDuration = audioFiles[currentAudioFileIndex].audioClip.length;
+            AudioFile s = audioFiles[currentAudioFileIndex];
+            float lowerVolumeDuration = s.audioClip.length;
             
-            if (MusicAudioFilePlayer.instance != null) {
+            if (MusicAudioFilePlayer.instance != null && s.volume != 0f) {
                 MusicAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
             }
-            if (MeditationAudioFilePlayer.instance != null) {
+            if (MeditationAudioFilePlayer.instance != null && s.volume != 0f) {
                 MeditationAudioFilePlayer.instance.LowerVolumeCurrentAudioFile(lowerVolumeDuration);
             }
             
