@@ -3969,7 +3969,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'User Testers: Ralha, Cati & Mi'
+  m_Text: 'User Testers: Ralha & Cati'
 --- !u!222 &412492309
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19084,6 +19084,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1712707982
@@ -19108,6 +19109,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!4 &1712707983

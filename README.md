@@ -5,10 +5,11 @@
 A High Immersion VR experience about forgiving oneself and starting a path of self-conscience, healing and inner peace.
 
 ### Project Duration
-It took me 3 months to complete - to learn 3D modelling, making the character and scenes
+It took me 3 months to complete - 1 month and a half to learn 3D modelling, making the character and scenes, the rest for VR Development
 
-### Video Link
-
+### Links for the Videos
+[Achievements Video](https://youtu.be/XA2Kf8NQ304)
+[Walkthrough Video](https://youtu.be/0w34AY2P5xA)
 
 ### List of achievements
 #### Fundamentals 
@@ -20,21 +21,24 @@ It took me 3 months to complete - to learn 3D modelling, making the character an
 - Empathy (100)
 
 #### Completeness
-- Diegetic UI (250)
+- Alternative story (250)
 - 3D Modelling (250)
 
 #### Challenges
-- Diegetic UI (500)
-- 3D Modelling (500)
+- Computer shaders (500)
+- Speech recognition (500)
+- User Testing (250)
 
+#### Achievements almost done
+- Diegetic UI
 
 ### Future Improvements
-- After the final level, go back to the previous levels and start cleaning the trash left behind. 
 - Improve the narrator
 - Start Menu UI
 - When pausing app, stop all coroutines and audios without affecting the game
 - Improve game object scales in level 1 and 6
 - Incorporate sounds in throwable objects when colliding on the floor
+- Fix teleport issues on some levels
 
 ### Target Platform
 HTC Vive
