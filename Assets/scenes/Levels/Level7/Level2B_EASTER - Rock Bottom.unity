@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.057014745, g: 0.088223904, b: 0.124237195, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -83942,6 +83942,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1790703773
