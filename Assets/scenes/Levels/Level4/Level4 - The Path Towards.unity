@@ -4580,7 +4580,7 @@ GameObject:
   - component: {fileID: 289857943}
   - component: {fileID: 289857945}
   - component: {fileID: 289857944}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: SpawnLocation2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8878,7 +8878,7 @@ GameObject:
   - component: {fileID: 343895027}
   - component: {fileID: 343895029}
   - component: {fileID: 343895028}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: SpawnLocation5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13122,7 +13122,7 @@ GameObject:
   - component: {fileID: 615010713}
   - component: {fileID: 615010715}
   - component: {fileID: 615010714}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: SpawnLocation4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32370,7 +32370,7 @@ GameObject:
   - component: {fileID: 974132223}
   - component: {fileID: 974132225}
   - component: {fileID: 974132224}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: SpawnLocation3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43036,6 +43036,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1403335313
@@ -64352,6 +64353,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1721893300
@@ -64376,6 +64378,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1721893301
@@ -64400,6 +64403,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1721893302
@@ -64424,6 +64428,7 @@ MonoBehaviour:
   highPitchRange: 1.5
   priority: 128
   source: {fileID: 0}
+  hasBeenCreatedBefore: 0
   isLooping: 0
   playOnAwake: 0
 --- !u!114 &1721893303
@@ -66325,6 +66330,11 @@ Prefab:
     - target: {fileID: 4784419318714798, guid: cf9b8e380932abf479e2ca9ea7392573, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657172931584940, guid: cf9b8e380932abf479e2ca9ea7392573,
+        type: 2}
+      propertyPath: traceLayerMask.m_Bits
+      value: 4294952955
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf9b8e380932abf479e2ca9ea7392573, type: 2}
@@ -70938,7 +70948,7 @@ GameObject:
   - component: {fileID: 2114533560}
   - component: {fileID: 2114533562}
   - component: {fileID: 2114533561}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: SpawnLocation1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
