@@ -28,7 +28,7 @@ public class Level4_EASTER_LSAnimationsAroundPlatform : MonoBehaviour {
 	private static int LS_NBR = 0;
 	private static float ANGLE_CONSTANT = Mathf.PI * 2f / 9;
 
-	private static int MOVE_TO_SPAWN_LOCATION = 0;
+	private int MOVE_TO_SPAWN_LOCATION = 0;
 
 	private Dictionary<string, LightSpiritsController.LightSpirit> lsDict;
 	private int lsDictCount;
@@ -39,9 +39,16 @@ public class Level4_EASTER_LSAnimationsAroundPlatform : MonoBehaviour {
     private void Awake()
 	{
 		_instance = this;
-		// the first one is the parent :/
-		instance.spawnLocationHeights = (gameObject.GetComponentsInChildren<Transform>()).Skip(1).ToArray();
 	}
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(Global.Level4_Events.MOVE_SPAWN_LOCATIONS, TriggerSpawnLocationAnimations);
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListening(Global.Level4_Events.MOVE_SPAWN_LOCATIONS, TriggerSpawnLocationAnimations);
+    }    
 
     public void PlaceLightSpiritsAroundPlatform()
     {
@@ -104,14 +111,14 @@ public class Level4_EASTER_LSAnimationsAroundPlatform : MonoBehaviour {
 
     private void TriggerSpawnLocationAnimations()
     {
-        MOVE_TO_SPAWN_LOCATION++;
+        instance.MOVE_TO_SPAWN_LOCATION++;
 
         MoveUpSpawnLocationsBelow();
     }
 
     private void MoveUpSpawnLocationsBelow()
     {
-        if (MOVE_TO_SPAWN_LOCATION < instance.spawnLocationHeights.Length)
+        if (instance.MOVE_TO_SPAWN_LOCATION < instance.spawnLocationHeights.Length)
         {
             // cancel all previous spawn Location LeanTweens
             foreach (int id in spawnLocationLtIds)
@@ -122,8 +129,8 @@ public class Level4_EASTER_LSAnimationsAroundPlatform : MonoBehaviour {
             spawnLocationLtIds.Clear();
 
             // move each spawn location upward
-            float targetPosY = instance.spawnLocationHeights[MOVE_TO_SPAWN_LOCATION].position.y;
-            for (int i = 0; i < MOVE_TO_SPAWN_LOCATION; i++)
+            float targetPosY = instance.spawnLocationHeights[instance.MOVE_TO_SPAWN_LOCATION].position.y;
+            for (int i = 0; i < instance.MOVE_TO_SPAWN_LOCATION; i++)
             {
                 float distance = targetPosY - instance.spawnLocationHeights[i].position.y;
                 LTDescr ltdescr = LeanTween.moveY(instance.spawnLocationHeights[i].gameObject, targetPosY, distance / moveUpSpeed)
