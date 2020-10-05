@@ -8,8 +8,8 @@ A High Immersion VR experience about forgiving oneself and starting a path of se
 It took me 3 months to complete - 1 month and a half to learn 3D modelling, making the character and scenes, the rest for VR Development
 
 ### Links for the Videos
-[Achievements Video](https://youtu.be/XA2Kf8NQ304)
-[Walkthrough Video](https://youtu.be/0w34AY2P5xA)
+[Achievements Video](https://youtu.be/XA2Kf8NQ304)   
+[Walkthrough Video](https://www.youtube.com/watch?v=F715ByCz954)
 
 ### List of achievements
 #### Fundamentals 
