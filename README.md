@@ -5,7 +5,8 @@
 A High Immersion VR experience about forgiving oneself and starting a path of self-conscience, healing and inner peace.
 
 ### Project Duration
-It took me 3 months to complete - 1 month and a half to learn 3D modelling, making the character and scenes, the rest for VR Development
+It took me 3 months to complete - 1 month and a half to learn 3D modelling, making the character and scenes, the rest for VR Development.  
+(This project, like the rest of the Udacity's VR Nanodegree course was made after working hours)
 
 ### Links for the Videos
 [Achievements Video](https://youtu.be/XA2Kf8NQ304)   
