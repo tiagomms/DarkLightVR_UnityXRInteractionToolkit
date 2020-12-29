@@ -78,7 +78,7 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
+# *.apk # - to include aplk in build
 *.unitypackage
 
 # Crashlytics generated file
