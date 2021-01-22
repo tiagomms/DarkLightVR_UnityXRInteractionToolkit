@@ -10,9 +10,8 @@ You may find the scope of the project in more detail in the word document in the
 It took me 3 months to complete - 1 month and a half to learn 3D modelling, making the character and scenes, the rest for VR Development.  
 (This project, like the rest of the Udacity's VR Nanodegree course was made after working hours)
 
-### [Project Build Folder](https://www.dropbox.com/sh/4hktod639eueemv/AAAfyTlfHk_4ZMPLe-ir-DKpa?dl=0) 
-
-### Links for the Videos
+### Links
+[Project Build Folder](https://www.dropbox.com/sh/4hktod639eueemv/AAAfyTlfHk_4ZMPLe-ir-DKpa?dl=0) 
 [Achievements Video](https://youtu.be/XA2Kf8NQ304)   
 [Walkthrough Video](https://www.youtube.com/watch?v=F715ByCz954)
 
