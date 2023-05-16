@@ -1,5 +1,8 @@
-# Dark \\|/ Light
-## A VR experience for the HTC Vive
+# Dark \\|/ Light (upgraded version)
+## A VR experience from HTC Vive to other headsets through Unity XR Interaction Toolkit
+
+This repo is an upgrade of my capstone Udacity High Immersion VR Nanodegree.
+I upgraded the Unity version to 2021.3.21f1 DarkLight VR developed with Unity XR Interaction Toolkit so it can handle cross VR support. 
 
 ### Description
 A High Immersion VR experience about forgiving oneself and starting a path of consciousness, healing and inner peace.
@@ -48,7 +51,8 @@ It took me 3 months to complete - 1 month and a half to learn 3D modelling, maki
 HTC Vive
 
 ### Build
-- SteamVR 2.2.0
-- Unity 2017.4.15f1
+- ~~SteamVR 2.2.0~~
+- ~~Unity 2017.4.15f1~~ Unity 2021.3.21f1
 - 3DsMax 2019
 - Windows 10
+
